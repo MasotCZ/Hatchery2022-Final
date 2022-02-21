@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HatcheryFinal_Web_API.Controllers;
+using HatcheryFinal_Web_API.Data.Dto;
 using HatcheryFinal_Web_API.Data.Entities;
 using HatcheryFinal_Web_API.Data.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -12,12 +13,14 @@ using System.Threading.Tasks;
 
 namespace WebAPITest.CreditPartnerAPIController
 {
+    //todo FUCK
     [TestClass]
-    public class CreditPartnerAPIControllerDeleteTest
+    public class CreditPartnerAPIControllerPutTest
     {
         private CreditPartnerController _controller;
         private ICreditPartnerRepository _repository;
         private IMapper _mapper;
+        private CreditPartnerUnregisterIncomingDto _dto;
 
         [TestInitialize]
         public void Init()
@@ -28,14 +31,14 @@ namespace WebAPITest.CreditPartnerAPIController
         }
 
         [TestMethod]
-        public void TestDeleteOk()
+        public void TestPutOk()
         {
             //arrange
             _repository.GetCreditPartnerByIdAsync(0).Returns(new CreditPartner());
             _repository.SaveChangesAsync().Returns(1);
-
+            
             //act
-            var res = _controller.Delete(0).Result;
+            var res = _controller.Put(0, _dto).Result;
 
             //assert
             res.ShouldBeOfType<OkResult>();

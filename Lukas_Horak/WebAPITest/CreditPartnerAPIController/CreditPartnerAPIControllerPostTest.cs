@@ -10,18 +10,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace WebAPITest.CreditPartnerAPIController
 {
     [TestClass]
     internal class CreditPartnerAPIControllerPostTest
-    {
-
-    }
-
-    [TestClass]
-    internal class CreditPartnerAPIControllerPutTest
     {
 
     }
