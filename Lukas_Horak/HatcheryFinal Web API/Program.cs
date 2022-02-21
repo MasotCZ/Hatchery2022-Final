@@ -10,7 +10,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<BankDbContext>();
-builder.Services.AddScoped<IBankRepository, BankRepository>();
+
+builder.Services.AddScoped<ICreditRequestRepository, CreditRequestRepository>();
+builder.Services.AddScoped<ICreditPartnerRepository, CreditPartnerRepository>();
+
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddControllers();
 

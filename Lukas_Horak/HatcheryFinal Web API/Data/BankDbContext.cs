@@ -1,4 +1,4 @@
-﻿using HatcheryFinal_Web_API.Data.Dao;
+﻿using HatcheryFinal_Web_API.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace HatcheryFinal_Web_API.Data
@@ -12,7 +12,8 @@ namespace HatcheryFinal_Web_API.Data
             _config = config;
         }
 
-        public DbSet<CreditRequestDao> CreditRequests { get; set; }
+        public DbSet<CreditRequest> CreditRequests { get; set; }
+        public DbSet<CreditPartner> CreditPartners { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlServer(_config.GetConnectionString("BankDb"));
@@ -20,9 +21,18 @@ namespace HatcheryFinal_Web_API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Entity<CreditRequestDao>()
+                .Entity<CreditRequest>()
                 .Property(d => d.Credit)
                 .HasPrecision(6, 2);
+
+            modelBuilder
+                .Entity<CreditPartner>()
+                .HasIndex(d => d.Token)
+                .IsUnique();
+
+            modelBuilder
+                .Entity<CreditPartner>()
+                .HasAlternateKey(d => d.Token);
         }
     }
 }

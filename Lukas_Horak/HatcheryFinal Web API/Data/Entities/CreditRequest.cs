@@ -1,11 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HatcheryFinal_Web_API.Data.Dao
+namespace HatcheryFinal_Web_API.Data.Entities
 {
-    public class CreditRequestDao
+    public class CreditRequest
     {
         [Key]
+        public int Id { get; set; }
+
+        [Required]
+        [ForeignKey("Partner")]
         public Guid Token { get; set; }
+        public CreditPartner Partner { get; set; }
 
         [Required]
         [Range(20_000, 500_000)]
@@ -33,5 +39,7 @@ namespace HatcheryFinal_Web_API.Data.Dao
 
         [StringLength(400)]
         public string? Note { get; set; }
+
+        public CreditRequestStatus ContactStatus { get; set; } = CreditRequestStatus.Default;
     }
 }

@@ -4,6 +4,7 @@ using HatcheryFinal_Web_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HatcheryFinal_Web_API.Migrations
 {
     [DbContext(typeof(BankDbContext))]
-    partial class BankDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220221123008_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,13 +48,10 @@ namespace HatcheryFinal_Web_API.Migrations
 
                     b.HasKey("Token");
 
-                    b.HasIndex("IdNumber")
-                        .IsUnique();
-
                     b.HasIndex("Token")
                         .IsUnique();
 
-                    b.ToTable("CreditPartners", (string)null);
+                    b.ToTable("CreditPartners");
                 });
 
             modelBuilder.Entity("HatcheryFinal_Web_API.Data.Dao.CreditRequest", b =>
@@ -103,7 +102,7 @@ namespace HatcheryFinal_Web_API.Migrations
 
                     b.HasIndex("Token");
 
-                    b.ToTable("CreditRequests", (string)null);
+                    b.ToTable("CreditRequests");
                 });
 
             modelBuilder.Entity("HatcheryFinal_Web_API.Data.Dao.CreditRequestStatus", b =>
@@ -123,7 +122,7 @@ namespace HatcheryFinal_Web_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CreditRequestStatus", (string)null);
+                    b.ToTable("CreditRequestStatus");
                 });
 
             modelBuilder.Entity("HatcheryFinal_Web_API.Data.Dao.CreditRequest", b =>
