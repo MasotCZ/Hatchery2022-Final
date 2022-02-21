@@ -4,17 +4,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HatcheryFinal_Web_API.Data
 {
-    class CreditPartnerRepository : RepositoryBase<CreditPartner>, ICreditPartnerRepository
+    class CreditPartnerRepository : RepositoryBase<CreditPartner, CreditPartnerRepository>, ICreditPartnerRepository
     {
-        public CreditPartnerRepository(BankDbContext context, ILogger<CreditRequestRepository> logger) : base(context, logger)
+        public CreditPartnerRepository(BankDbContext context, ILogger<CreditPartnerRepository> logger) : base(context, logger)
         {
         }
 
-        public async Task<CreditPartner> GetActiveCreditPartnerByTokenAsync(Guid token)
+        public async Task<CreditPartner> GetActiveCreditPartnerByTokenAsync(Guid token, bool includeRequests = false)
         {
             _logger.LogInformation($"Selecting active credit partner by token: {token}");
 
-            var res = await GetQuerryCreaditPartnerByToken(token)
+            var res = await GetQuerryCreaditPartnerByFilterFunction(d => d.Token == token, includeRequests)
                  .FirstOrDefaultAsync(d => d.EndDate == null || d.EndDate > DateTime.Now);
 
             _logger.LogInformation($"Found result: {res is not null}");
@@ -22,22 +22,34 @@ namespace HatcheryFinal_Web_API.Data
             return res;
         }
 
-        public async Task<CreditPartner> GetCreditPartnerByTokenAsync(Guid token)
+        public async Task<CreditPartner> GetCreditPartnerByIdAsync(int id, bool includeRequests = false)
         {
-            _logger.LogInformation($"Selecting credit partner by token: {token}");
+            _logger.LogInformation($"Selecting active credit partner by token: {id}");
 
-            var res = await GetQuerryCreaditPartnerByToken(token).FirstOrDefaultAsync();
+            var res = await GetQuerryCreaditPartnerByFilterFunction(d => d.Id == id, includeRequests)
+                 .FirstOrDefaultAsync(d => d.EndDate == null || d.EndDate > DateTime.Now);
 
             _logger.LogInformation($"Found result: {res is not null}");
 
             return res;
         }
 
-        public async Task<CreditPartner> GetInactiveCreditPartnerByTokenASync(Guid token)
+        public async Task<CreditPartner> GetCreditPartnerByTokenAsync(Guid token, bool includeRequests = false)
+        {
+            _logger.LogInformation($"Selecting credit partner by token: {token}");
+
+            var res = await GetQuerryCreaditPartnerByFilterFunction(d => d.Token == token, includeRequests).FirstOrDefaultAsync();
+
+            _logger.LogInformation($"Found result: {res is not null}");
+
+            return res;
+        }
+
+        public async Task<CreditPartner> GetInactiveCreditPartnerByTokenASync(Guid token, bool includeRequests = false)
         {
             _logger.LogInformation($"Selecting inactive credit partner by token: {token}");
 
-            var res = await GetQuerryCreaditPartnerByToken(token)
+            var res = await GetQuerryCreaditPartnerByFilterFunction(d => d.Token == token, includeRequests)
                 .FirstOrDefaultAsync(d => d.EndDate != null && d.EndDate < DateTime.Now);
 
             _logger.LogInformation($"Found result: {res is not null}");
@@ -45,10 +57,12 @@ namespace HatcheryFinal_Web_API.Data
             return res;
         }
 
-        private IQueryable<CreditPartner> GetQuerryCreaditPartnerByToken(Guid token)
+        private IQueryable<CreditPartner> GetQuerryCreaditPartnerByFilterFunction(
+            System.Linq.Expressions.Expression<Func<CreditPartner, bool>> filter,
+            bool includeRequests = false)
         {
             var querry = _context.CreditPartners.AsQueryable();
-            return querry.Where(d => d.Token == token);
+            return querry.Where(filter);
         }
     }
 }

@@ -85,7 +85,7 @@ namespace HatcheryFinal_Web_API.Controllers
         /// <param name="creditPartnerDto"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CreditPartner>> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {

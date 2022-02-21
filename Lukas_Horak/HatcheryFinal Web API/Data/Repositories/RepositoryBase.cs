@@ -2,12 +2,12 @@
 
 namespace HatcheryFinal_Web_API.Data
 {
-    abstract class RepositoryBase<_T> : IRepository<_T> where _T : class
+    abstract class RepositoryBase<_T, _L> : IRepository<_T> where _T : class
     {
         protected readonly BankDbContext _context;
-        protected readonly ILogger<CreditRequestRepository> _logger;
+        protected readonly ILogger<_L> _logger;
 
-        protected RepositoryBase(BankDbContext context, ILogger<CreditRequestRepository> logger)
+        protected RepositoryBase(BankDbContext context, ILogger<_L> logger)
         {
             _context = context;
             _logger = logger;

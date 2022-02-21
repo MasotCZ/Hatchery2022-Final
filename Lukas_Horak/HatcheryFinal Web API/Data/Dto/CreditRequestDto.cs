@@ -1,18 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HatcheryFinal_Web_API.Data.Entities
+namespace HatcheryFinal_Web_API.Data.Dto
 {
-    public class CreditRequest
+    public class CreditRequestDto
     {
-        [Key]
-        public int Id { get; set; }
-
-        [Required]
-        [ForeignKey("Partner")]
-        public Guid Token { get; set; }
-        public CreditPartner Partner { get; set; }
-
         [Required]
         [Range(20_000, 500_000)]
         public decimal Credit { get; set; }
@@ -40,6 +31,7 @@ namespace HatcheryFinal_Web_API.Data.Entities
         [StringLength(400)]
         public string? Note { get; set; }
 
-        public CreditRequestStatus ContactStatus { get; set; } = CreditRequestStatus.Default;
+        public CreditRequestStatusDto? ContactStatus { get; set; }
+        public CreditPartnerFullInfoDto? PartnerFullInfo { get; set;}
     }
 }

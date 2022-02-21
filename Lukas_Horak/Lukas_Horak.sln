@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HatcheryFinal Web API", "HatcheryFinal Web API\HatcheryFinal Web API.csproj", "{ECA24055-5902-4936-9FB5-28D7244D1CDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPITest", "WebAPITest\WebAPITest.csproj", "{C81C1B26-1541-4C4C-8959-2CA33CBB3B85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{ECA24055-5902-4936-9FB5-28D7244D1CDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECA24055-5902-4936-9FB5-28D7244D1CDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECA24055-5902-4936-9FB5-28D7244D1CDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C81C1B26-1541-4C4C-8959-2CA33CBB3B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C81C1B26-1541-4C4C-8959-2CA33CBB3B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C81C1B26-1541-4C4C-8959-2CA33CBB3B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C81C1B26-1541-4C4C-8959-2CA33CBB3B85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

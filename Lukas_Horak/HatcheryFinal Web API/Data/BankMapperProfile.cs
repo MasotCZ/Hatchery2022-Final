@@ -13,6 +13,9 @@ namespace HatcheryFinal_Web_API.Data
 
             this.CreateMap<CreditRequest, CreditRequestDto>()
                 .ReverseMap();
+
+            this.CreateMap<CreditRequestStatus, CreditRequestStatusDto>()
+                .ReverseMap();
         }
     }
 }
