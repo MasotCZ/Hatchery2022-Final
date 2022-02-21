@@ -7,14 +7,12 @@ namespace HatcheryFinal_Web_API.Data.Entities
     public class CreditPartner
     {
         [Key]
-        public int Id { get; set; } 
+        [Range(0, int.MaxValue, ErrorMessage = "Id muset be higher than {0}")]
+        public int IdNumber { get; set; }
 
         [Required]
         public Guid Token { get; set; }
         
-        [Range(0, int.MaxValue, ErrorMessage = "Id muset be higher than {0}")]
-        public int IdNumber { get; set; }
-
         [Required]
         public string Name { get; set; }
 
