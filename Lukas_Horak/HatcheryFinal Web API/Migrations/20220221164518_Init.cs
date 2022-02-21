@@ -13,8 +13,9 @@ namespace HatcheryFinal_Web_API.Migrations
                 name: "CreditPartners",
                 columns: table => new
                 {
+                    IdNumber = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Token = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdNumber = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -22,7 +23,8 @@ namespace HatcheryFinal_Web_API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CreditPartners", x => x.Token);
+                    table.PrimaryKey("PK_CreditPartners", x => x.IdNumber);
+                    table.UniqueConstraint("AK_CreditPartners_Token", x => x.Token);
                 });
 
             migrationBuilder.CreateTable(
@@ -47,7 +49,7 @@ namespace HatcheryFinal_Web_API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Token = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Credit = table.Column<decimal>(type: "decimal(6,2)", precision: 6, scale: 2, nullable: false),
-                    MonthsTillCreditMaturity = table.Column<int>(type: "int", nullable: false),
+                    CreditLengthInMonths = table.Column<int>(type: "int", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Surname = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -71,12 +73,6 @@ namespace HatcheryFinal_Web_API.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CreditPartners_Token",
-                table: "CreditPartners",
-                column: "Token",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CreditRequests_ContactStatusId",

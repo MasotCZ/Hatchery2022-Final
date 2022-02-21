@@ -9,7 +9,6 @@ namespace HatcheryFinal_Web_API.Data.Entities
         public int Id { get; set; }
 
         [Required]
-        [ForeignKey("Partner")]
         public Guid Token { get; set; }
         public CreditPartner Partner { get; set; }
 

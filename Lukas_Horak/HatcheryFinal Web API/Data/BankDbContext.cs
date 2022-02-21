@@ -25,14 +25,12 @@ namespace HatcheryFinal_Web_API.Data
                 .Property(d => d.Credit)
                 .HasPrecision(6, 2);
 
-            modelBuilder
-                .Entity<CreditPartner>()
-                .HasIndex(d => d.Token)
-                .IsUnique();
+            modelBuilder.Entity<CreditPartner>()
+            .HasMany(d => d.Requests)
+            .WithOne(d => d.Partner)
+            .HasForeignKey(d => d.Token)
+            .HasPrincipalKey(d => d.Token);
 
-            modelBuilder
-                .Entity<CreditPartner>()
-                .HasAlternateKey(d => d.Token);
         }
     }
 }

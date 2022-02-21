@@ -22,20 +22,19 @@ namespace HatcheryFinal_Web_API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("HatcheryFinal_Web_API.Data.Dao.CreditPartner", b =>
+            modelBuilder.Entity("HatcheryFinal_Web_API.Data.Entities.CreditPartner", b =>
                 {
-                    b.Property<Guid>("Token")
+                    b.Property<int>("IdNumber")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdNumber"), 1L, 1);
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<byte[]>("File")
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<int>("IdNumber")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -44,18 +43,15 @@ namespace HatcheryFinal_Web_API.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Token");
+                    b.Property<Guid>("Token")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("IdNumber")
-                        .IsUnique();
+                    b.HasKey("IdNumber");
 
-                    b.HasIndex("Token")
-                        .IsUnique();
-
-                    b.ToTable("CreditPartners", (string)null);
+                    b.ToTable("CreditPartners");
                 });
 
-            modelBuilder.Entity("HatcheryFinal_Web_API.Data.Dao.CreditRequest", b =>
+            modelBuilder.Entity("HatcheryFinal_Web_API.Data.Entities.CreditRequest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,12 +66,12 @@ namespace HatcheryFinal_Web_API.Migrations
                         .HasPrecision(6, 2)
                         .HasColumnType("decimal(6,2)");
 
+                    b.Property<int>("CreditLengthInMonths")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("MonthsTillCreditMaturity")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasMaxLength(200)
@@ -103,10 +99,10 @@ namespace HatcheryFinal_Web_API.Migrations
 
                     b.HasIndex("Token");
 
-                    b.ToTable("CreditRequests", (string)null);
+                    b.ToTable("CreditRequests");
                 });
 
-            modelBuilder.Entity("HatcheryFinal_Web_API.Data.Dao.CreditRequestStatus", b =>
+            modelBuilder.Entity("HatcheryFinal_Web_API.Data.Entities.CreditRequestStatus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -123,20 +119,21 @@ namespace HatcheryFinal_Web_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CreditRequestStatus", (string)null);
+                    b.ToTable("CreditRequestStatus");
                 });
 
-            modelBuilder.Entity("HatcheryFinal_Web_API.Data.Dao.CreditRequest", b =>
+            modelBuilder.Entity("HatcheryFinal_Web_API.Data.Entities.CreditRequest", b =>
                 {
-                    b.HasOne("HatcheryFinal_Web_API.Data.Dao.CreditRequestStatus", "ContactStatus")
+                    b.HasOne("HatcheryFinal_Web_API.Data.Entities.CreditRequestStatus", "ContactStatus")
                         .WithMany()
                         .HasForeignKey("ContactStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HatcheryFinal_Web_API.Data.Dao.CreditPartner", "Partner")
+                    b.HasOne("HatcheryFinal_Web_API.Data.Entities.CreditPartner", "Partner")
                         .WithMany("Requests")
                         .HasForeignKey("Token")
+                        .HasPrincipalKey("Token")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -145,7 +142,7 @@ namespace HatcheryFinal_Web_API.Migrations
                     b.Navigation("Partner");
                 });
 
-            modelBuilder.Entity("HatcheryFinal_Web_API.Data.Dao.CreditPartner", b =>
+            modelBuilder.Entity("HatcheryFinal_Web_API.Data.Entities.CreditPartner", b =>
                 {
                     b.Navigation("Requests");
                 });

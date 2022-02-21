@@ -23,14 +23,21 @@ namespace HatcheryFinal_Web_API.Controllers
         /// <summary>
         /// TODO
         /// </summary>
-        /// <param name="creditPartnerRegisterDto"></param>
+        /// <param name="creditPartnerDto"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<CreditPartner>> Post([FromBody] CreditPartnerFullInfoDto creditPartnerRegisterDto)
+        public async Task<ActionResult<CreditPartner>> Post([FromBody] CreditPartnerFullInfoDto creditPartnerDto)
         {
             try
             {
-                var toAdd = _mapper.Map<CreditPartner>(creditPartnerRegisterDto);
+                var current = _partnerRepository.GetCreditPartnerByIdAsync(creditPartnerDto.IdNumber);
+
+                if (current is not null)
+                {
+                    return BadRequest("Partner already registered");
+                }
+
+                var toAdd = _mapper.Map<CreditPartner>(creditPartnerDto);
                 _partnerRepository.Add(toAdd);
 
                 if (await _partnerRepository.SaveChangesAsync() != 1)

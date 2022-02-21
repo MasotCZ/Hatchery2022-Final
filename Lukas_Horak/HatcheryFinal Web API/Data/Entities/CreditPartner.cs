@@ -23,7 +23,6 @@ namespace HatcheryFinal_Web_API.Data.Entities
 
         public byte[]? File { get; set; }
 
-        [ForeignKey("Token")]
         public ICollection<CreditRequest>? Requests { get; set; }
     }
 }
