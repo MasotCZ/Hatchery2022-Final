@@ -2,7 +2,6 @@
 
 namespace HatcheryFinal_Web_API.Data.Entities
 {
-    [Flags]
     public enum CreditRequestStatusCode
     {
         Unfulfilled,
@@ -24,7 +23,7 @@ namespace HatcheryFinal_Web_API.Data.Entities
 
         public CreditRequestStatusCode StatusCode { get; set; }
 
-        [StringLength(400)]
+        [StringLength(512)]
         public string? ContactNotes { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace HatcheryFinal_Web_API.Data.Dto
         public int IdNumber { get; set; }
 
         [Required]
+        [StringLength(255)]
         public string Name { get; set; }
 
         [Required]

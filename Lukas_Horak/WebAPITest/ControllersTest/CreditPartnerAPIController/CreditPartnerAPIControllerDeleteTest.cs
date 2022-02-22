@@ -11,16 +11,14 @@ using NSubstitute.ExceptionExtensions;
 using Shouldly;
 using System.Threading.Tasks;
 
-namespace WebAPITest.CreditPartnerAPIController
+namespace WebAPITest.ControllersTest.CreditPartnerAPIController
 {
-    //todo FUCK
     [TestClass]
-    public class CreditPartnerAPIControllerPutTest
+    public class CreditPartnerAPIControllerDeleteTest
     {
         private CreditPartnerController _controller;
         private ICreditPartnerRepository _repository;
         private IMapper _mapper;
-        private CreditPartnerUnregisterIncomingDto _dto;
 
         [TestInitialize]
         public void Init()
@@ -30,64 +28,74 @@ namespace WebAPITest.CreditPartnerAPIController
             _controller = new CreditPartnerController(_repository, _mapper);
         }
 
+        [DataRow(1)]
         [TestMethod]
-        public void TestPutOk()
+        public void DeleteOkTest(int id)
         {
             //arrange
-            _repository.GetCreditPartnerByIdAsync(0).Returns(new CreditPartner());
+            var fromDb = new CreditPartner() { IdNumber = 1 };
+            _repository.GetCreditPartnerByIdAsync(Arg.Any<int>()).Returns(Task.FromResult(fromDb));
             _repository.SaveChangesAsync().Returns(1);
-            
+
             //act
-            var res = _controller.Put(0, _dto).Result;
+            var res = _controller.Delete(id).Result;
 
             //assert
             res.ShouldBeOfType<OkResult>();
+
+            _repository.Received().GetCreditPartnerByIdAsync(id);
+            _repository.Received().Remove(fromDb);
+            _repository.Received().SaveChangesAsync();
         }
 
+        [DataRow(1)]
         [TestMethod]
-        public void TestDeleteNotFound()
+        public void DeleteNotFoundTest(int id)
         {
             //arrange
-            _repository.GetCreditPartnerByIdAsync(0).Returns(Task.FromResult<CreditPartner>(null));
-            _repository.SaveChangesAsync().Returns(1);
+            _repository.GetCreditPartnerByIdAsync(Arg.Any<int>()).Returns(Task.FromResult<CreditPartner>(null));
 
             //act
-            var res = _controller.Delete(0).Result;
+            var res = _controller.Delete(id).Result;
 
             //assert
-            //Assert.IsTrue(res.Result is NotFoundObjectResult, $"status is: {(res.Result as StatusCodeResult).StatusCode}");
             res.ShouldBeOfType<NotFoundResult>();
+            _repository.Received().GetCreditPartnerByIdAsync(id);
         }
 
-        [DataRow(0)]
-        [DataRow(2)]
+        [DataRow(1, 0)]
+        [DataRow(1, 2)]
         [TestMethod]
-        public void TestDeleteSaveChangeError(int changes)
+        public void DeleteSaveChangeErrorTest(int id, int changes)
         {
             //arrange
-            _repository.GetCreditPartnerByIdAsync(0).Returns(new CreditPartner());
+            var fromDb = new CreditPartner() { IdNumber = 1 };
+            _repository.GetCreditPartnerByIdAsync(Arg.Any<int>()).Returns(Task.FromResult(fromDb));
             _repository.SaveChangesAsync().Returns(changes);
 
             //act
-            var res = _controller.Delete(0).Result;
+            var res = _controller.Delete(id).Result;
 
             //assert
             res.ShouldBeOfType<BadRequestObjectResult>();
+            _repository.Received().GetCreditPartnerByIdAsync(id);
+            _repository.Received().Remove(fromDb);
         }
 
-        [DataRow(0)]
-        [DataRow(2)]
+        [DataRow(1)]
         [TestMethod]
-        public void TestDeleteExceptionThrown(int changes)
+        public void DeleteInternalServerErrorTest(int id)
         {
             //arrange
-            _repository.GetCreditPartnerByIdAsync(0).Throws(new System.Exception());
+            _repository.GetCreditPartnerByIdAsync(Arg.Any<int>()).Throws(new System.Exception());
 
             //act
-            var res = _controller.Delete(0).Result;
+            var res = _controller.Delete(id).Result;
 
             //assert
             (res as ObjectResult).StatusCode.ShouldBe(StatusCodes.Status500InternalServerError);
+
+            _repository.Received().GetCreditPartnerByIdAsync(id);
         }
     }
 }

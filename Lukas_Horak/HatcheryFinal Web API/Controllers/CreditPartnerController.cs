@@ -30,7 +30,7 @@ namespace HatcheryFinal_Web_API.Controllers
         {
             try
             {
-                var current = _partnerRepository.GetCreditPartnerByIdAsync(creditPartnerDto.IdNumber);
+                var current = await _partnerRepository.GetCreditPartnerByIdAsync(creditPartnerDto.IdNumber);
 
                 if (current is not null)
                 {

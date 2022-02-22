@@ -23,20 +23,20 @@ namespace HatcheryFinal_Web_API.Data.Entities
         //contact info
         [Required]
         [Phone]
-        [StringLength(50)]
+        [StringLength(64)]
         public string Phone { get; set; }
 
-        [StringLength(200)]
+        [StringLength(255)]
         public string? Name { get; set; }
 
-        [StringLength(200)]
+        [StringLength(255)]
         public string? Surname { get; set; }
 
         [EmailAddress]
-        [StringLength(200)]
+        [StringLength(255)]
         public string? Email { get; set; }
 
-        [StringLength(400)]
+        [StringLength(512)]
         public string? Note { get; set; }
 
         public CreditRequestStatus ContactStatus { get; set; } = CreditRequestStatus.Default;

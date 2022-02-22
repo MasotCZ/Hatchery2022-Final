@@ -7,7 +7,7 @@ namespace HatcheryFinal_Web_API.Data.Dto
     {
         public CreditRequestStatusCode StatusCode { get; set; }
 
-        [StringLength(400)]
+        [StringLength(512)]
         public string? ContactNotes { get; set; }
     }
 }

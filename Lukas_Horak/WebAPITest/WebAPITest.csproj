@@ -22,4 +22,8 @@
     <ProjectReference Include="..\HatcheryFinal Web API\HatcheryFinal Web API.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="RepositoriesTest\CreditRequestRepositoryTest\" />
+  </ItemGroup>
+
 </Project>

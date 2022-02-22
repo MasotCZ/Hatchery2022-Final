@@ -27,7 +27,7 @@ namespace HatcheryFinal_Web_API.Controllers
             {
                 var requests = await _requestRepository.GetAllUnfulfilledCreditRequestsAsync();
 
-                return Ok(_mapper.Map<CreditRequestDto>(requests));
+                return Ok(_mapper.Map<CreditRequestDto[]>(requests));
             }
             catch (Exception e)
             {
@@ -36,7 +36,7 @@ namespace HatcheryFinal_Web_API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<CreditRequest[]>> Put(int id, [FromBody] CreditRequestDto creditRequestDto)
+        public async Task<ActionResult<CreditRequest>> Put(int id, [FromBody] CreditRequestDto creditRequestDto)
         {
             try
             {
