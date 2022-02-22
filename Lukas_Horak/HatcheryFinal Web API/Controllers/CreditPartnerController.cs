@@ -26,7 +26,7 @@ namespace HatcheryFinal_Web_API.Controllers
         /// <param name="creditPartnerDto"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<CreditPartner>> Post([FromBody] CreditPartnerFullInfoDto creditPartnerDto)
+        public async Task<ActionResult<CreditPartnerRegisteredDto>> Post([FromBody] CreditPartnerFullInfoDto creditPartnerDto)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace HatcheryFinal_Web_API.Controllers
                     return BadRequest("Could not save to Db");
                 }
 
-                return Ok(_mapper.Map<CreditPartnerFullInfoDto>(toAdd));
+                return Ok(_mapper.Map<CreditPartnerRegisteredDto>(toAdd));
             }
             catch (Exception e)
             {
@@ -59,7 +59,7 @@ namespace HatcheryFinal_Web_API.Controllers
         /// <param name="creditPartnerUnregisterDto"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<ActionResult<CreditPartner>> Put(int id, [FromBody] CreditPartnerUnregisterIncomingDto creditPartnerUnregisterDto)
+        public async Task<ActionResult<CreditPartnerFullInfoDto>> Put(int id, [FromBody] CreditPartnerChangeEndDateIncomingDto creditPartnerUnregisterDto)
         {
             try
             {
@@ -86,7 +86,7 @@ namespace HatcheryFinal_Web_API.Controllers
         }
 
         /// <summary>
-        /// TODO
+        /// for internal use only
         /// In case i need to delete partner, bacause error or smth, shouldnt be used really unless error
         /// </summary>
         /// <param name="creditPartnerDto"></param>

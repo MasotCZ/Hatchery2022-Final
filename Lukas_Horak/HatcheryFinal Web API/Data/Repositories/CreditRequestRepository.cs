@@ -10,7 +10,7 @@ namespace HatcheryFinal_Web_API.Data
         {
         }
 
-        public async Task<CreditRequest[]> GetAllUnfulfilledCreditRequestsAsync()
+        public async Task<CreditRequest[]> GetAllUnfulfilledActiveCreditRequestsAsync()
         {
             _logger.LogInformation($"Selecting unfulfilled credit requests");
 

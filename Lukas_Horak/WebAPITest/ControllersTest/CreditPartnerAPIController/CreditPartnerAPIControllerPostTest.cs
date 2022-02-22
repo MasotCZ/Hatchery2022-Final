@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using Shouldly;
+using System;
 using System.Threading.Tasks;
 
 namespace WebAPITest.ControllersTest.CreditPartnerAPIController
@@ -38,11 +39,11 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
             _repository.SaveChangesAsync().Returns(1);
 
             var toDb = new CreditPartner() { IdNumber = 1 };
-            var output = new CreditPartnerFullInfoDto() { IdNumber = 12 };
+            var output = new CreditPartnerRegisteredDto() { Token = "10" };
 
             _mapper.Map<CreditPartner>(Arg.Any<CreditPartnerFullInfoDto>())
                 .Returns(toDb);
-            _mapper.Map<CreditPartnerFullInfoDto>(Arg.Any<CreditPartner>())
+            _mapper.Map<CreditPartnerRegisteredDto>(Arg.Any<CreditPartner>())
                 .Returns(output);
 
             //act
@@ -50,13 +51,13 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
 
             //assert
             res.Result.ShouldBeOfType<OkObjectResult>();
-            (res.Result as OkObjectResult).Value.ShouldBeOfType<CreditPartnerFullInfoDto>();
-            ((res.Result as OkObjectResult).Value as CreditPartnerFullInfoDto).IdNumber.ShouldBe(12);
+            (res.Result as OkObjectResult).Value.ShouldBeOfType<CreditPartnerRegisteredDto>();
+            ((res.Result as OkObjectResult).Value as CreditPartnerRegisteredDto).Token.ShouldBe("10");
 
             _repository.Received().GetCreditPartnerByIdAsync(1);
             _mapper.Received().Map<CreditPartner>(_dto);
             _repository.Received().Add(toDb);
-            _mapper.Received().Map<CreditPartnerFullInfoDto>(toDb);
+            _mapper.Received().Map<CreditPartnerRegisteredDto>(toDb);
         }
 
         [TestMethod]

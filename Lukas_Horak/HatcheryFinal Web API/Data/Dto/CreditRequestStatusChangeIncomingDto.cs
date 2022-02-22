@@ -2,9 +2,9 @@
 
 namespace HatcheryFinal_Web_API.Data.Dto
 {
-    public class CreditPartnerUnregisterIncomingDto
+    public class CreditRequestStatusChangeIncomingDto
     {
         [Required]
-        public DateTime EndDate { get; set; }
+        public CreditRequestStatusDto? ContactStatus { get; set; }
     }
 }

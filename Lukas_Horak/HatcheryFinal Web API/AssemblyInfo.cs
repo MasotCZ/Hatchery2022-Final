@@ -17,3 +17,5 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("90975cdf-311a-4c7e-bd20-d049f392605a")]
 [assembly: InternalsVisibleTo("WebAPITest")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
+

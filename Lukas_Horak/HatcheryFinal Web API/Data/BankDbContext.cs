@@ -1,9 +1,15 @@
 ﻿using HatcheryFinal_Web_API.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HatcheryFinal_Web_API.Data
 {
-    class BankDbContext : DbContext
+    public interface IBankDbContext
+    {
+
+    }
+
+    internal class BankDbContext : DbContext, IBankDbContext
     {
         private readonly IConfiguration _config;
 

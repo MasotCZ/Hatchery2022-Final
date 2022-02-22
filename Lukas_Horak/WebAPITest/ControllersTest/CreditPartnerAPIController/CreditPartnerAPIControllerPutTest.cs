@@ -20,7 +20,7 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
         private CreditPartnerController _controller;
         private ICreditPartnerRepository _repository;
         private IMapper _mapper;
-        private CreditPartnerUnregisterIncomingDto _dto;
+        private CreditPartnerChangeEndDateIncomingDto _dto;
         private DateTime _endDate;
 
         [TestInitialize]
@@ -30,7 +30,7 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
             _mapper = Substitute.For<IMapper>();
             _controller = new CreditPartnerController(_repository, _mapper);
             _endDate = new DateTime(2020, 10, 10);
-            _dto = new CreditPartnerUnregisterIncomingDto() { EndDate = _endDate };
+            _dto = new CreditPartnerChangeEndDateIncomingDto() { EndDate = _endDate };
         }
 
         [DataRow(1)]
@@ -44,7 +44,7 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
 
             var output = new CreditPartnerFullInfoDto() { EndDate = _endDate };
 
-            _mapper.Map(Arg.Any<CreditPartnerUnregisterIncomingDto>(), Arg.Any<CreditPartner>()).Returns(fromDb);
+            _mapper.Map(Arg.Any<CreditPartnerChangeEndDateIncomingDto>(), Arg.Any<CreditPartner>()).Returns(fromDb);
             _mapper.Map<CreditPartnerFullInfoDto>(Arg.Any<CreditPartner>())
                 .Returns(output);
 
@@ -96,7 +96,7 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
             _repository.GetCreditPartnerByIdAsync(Arg.Any<int>()).Returns(Task.FromResult(fromDb));
             _repository.SaveChangesAsync().Returns(changes);
 
-            _mapper.Map(Arg.Any<CreditPartnerUnregisterIncomingDto>(), Arg.Any<CreditPartner>()).Returns(fromDb);
+            _mapper.Map(Arg.Any<CreditPartnerChangeEndDateIncomingDto>(), Arg.Any<CreditPartner>()).Returns(fromDb);
 
             //act
             var res = _controller.Put(id, _dto).Result;

@@ -17,7 +17,8 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
     public class CreditRequestAPIControllerGetTest
     {
         private CreditRequestController _controller;
-        private ICreditRequestRepository _repository;
+        private ICreditRequestRepository _requestRepository;
+        private ICreditPartnerRepository _partnerRepository;
         private IMapper _mapper;
         private CreditRequest[] _fromDb;
         private CreditRequestDto[] _output;
@@ -25,10 +26,10 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
         [TestInitialize]
         public void Init()
         {
-            _repository = Substitute.For<ICreditRequestRepository>();
+            _requestRepository = Substitute.For<ICreditRequestRepository>();
             _mapper = Substitute.For<IMapper>();
 
-            _controller = new CreditRequestController(_repository, _mapper);
+            _controller = new CreditRequestController(_requestRepository, _partnerRepository, _mapper);
 
             _fromDb = new CreditRequest[]
             {
@@ -51,14 +52,14 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
         public void GetOkTest()
         {
             //arrange
-            _repository.GetAllUnfulfilledCreditRequestsAsync().Returns(Task.FromResult(_fromDb));
+            _requestRepository.GetAllUnfulfilledActiveCreditRequestsAsync().Returns(Task.FromResult(_fromDb));
             _mapper.Map<CreditRequestDto[]>(Arg.Any<CreditRequest[]>()).Returns(_output);
 
             //act
             var res = _controller.Get().Result;
 
             //assert
-            _repository.Received().GetAllUnfulfilledCreditRequestsAsync();
+            _requestRepository.Received().GetAllUnfulfilledActiveCreditRequestsAsync();
             _mapper.Received().Map<CreditRequestDto[]>(_fromDb);
 
             res.Result.ShouldBeOfType<OkObjectResult>();
@@ -70,13 +71,13 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
         public void GetInternalServerErrorTest()
         {
             //arrange
-            _repository.GetAllUnfulfilledCreditRequestsAsync().Throws(new System.Exception());
+            _requestRepository.GetAllUnfulfilledActiveCreditRequestsAsync().Throws(new System.Exception());
 
             //act
             var res = _controller.Get().Result;
 
             //assert
-            _repository.Received().GetAllUnfulfilledCreditRequestsAsync();
+            _requestRepository.Received().GetAllUnfulfilledActiveCreditRequestsAsync();
 
             (res.Result as ObjectResult).StatusCode.ShouldBe(StatusCodes.Status500InternalServerError);
         }

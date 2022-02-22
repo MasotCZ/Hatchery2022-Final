@@ -5,6 +5,9 @@ namespace HatcheryFinal_Web_API.Data.Dto
     public class CreditRequestDto
     {
         [Required]
+        public string Token { get; set; }
+
+        [Required]
         [Range(20_000, 500_000)]
         public decimal Credit { get; set; }
 
@@ -32,6 +35,6 @@ namespace HatcheryFinal_Web_API.Data.Dto
         public string? Note { get; set; }
 
         public CreditRequestStatusDto? ContactStatus { get; set; }
-        public CreditPartnerFullInfoDto? PartnerFullInfo { get; set;}
+        public CreditPartnerFullInfoDto? PartnerFullInfo { get; set; }
     }
 }
