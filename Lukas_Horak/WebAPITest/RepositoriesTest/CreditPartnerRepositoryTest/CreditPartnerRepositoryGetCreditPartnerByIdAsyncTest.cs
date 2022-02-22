@@ -20,10 +20,12 @@ namespace WebAPITest.RepositoriesTest.CreditPartnerRepositoryTest
     {
         private BankDbContext _context;
         private ICreditPartnerRepository _repository;
-        private DbSet<CreditPartner> _data;
+        private IQueryable<CreditPartner> _data;
 
         private DbContextOptions<BankDbContext> _options;
         private IConfiguration _config;
+
+        private BankDbContext _bankDbContext;
 
         [TestInitialize]
         public void Init()
@@ -33,14 +35,15 @@ namespace WebAPITest.RepositoriesTest.CreditPartnerRepositoryTest
             _options = new DbContextOptionsBuilder<BankDbContext>()
                 .UseInMemoryDatabase(databaseName: "BankDb").Options;
 
-            //----old
-
             _config = new ConfigurationBuilder()
                 .AddInMemoryCollection(new Dictionary<string, string>()
                 {
                     { "ConnectionStringDefault", "BankDb"}
                 })
                 .Build();
+
+            var ok = Substitute.For<IBankDbContext>();
+            _repository = new CreditPartnerRepository(_context as BankDbContext, NullLogger<CreditPartnerRepository>.Instance);
 
             //var dbContextOptions = new DbContextOptionsBuilder<BankDbContext>().Options;
             //.UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
@@ -51,12 +54,12 @@ namespace WebAPITest.RepositoriesTest.CreditPartnerRepositoryTest
             //_context = Substitute.For<BankDbContext>(dbContextOptions, null);
             //_repository = new CreditPartnerRepository(_context, NullLogger<CreditPartnerRepository>.Instance);
 
-            //_data = (new List<CreditPartner>()
-            //{
-            //    new CreditPartner(){ IdNumber = 1, Requests = new List<CreditRequest>() { new CreditRequest() { Id = 1} } },
-            //    new CreditPartner(){ IdNumber = 2, Requests = new List<CreditRequest>() { new CreditRequest() { Id = 2} } },
-            //    new CreditPartner(){ IdNumber = 3, Requests = new List<CreditRequest>() { new CreditRequest() { Id = 3} } },
-            //}).AsQueryable() as DbSet<CreditPartner>;
+            _data = (new List<CreditPartner>()
+            {
+                new CreditPartner(){ IdNumber = 1, Requests = new List<CreditRequest>() { new CreditRequest() { Id = 1} } },
+                new CreditPartner(){ IdNumber = 2, Requests = new List<CreditRequest>() { new CreditRequest() { Id = 2} } },
+                new CreditPartner(){ IdNumber = 3, Requests = new List<CreditRequest>() { new CreditRequest() { Id = 3} } },
+            }).AsQueryable();
         }
 
         [TestMethod]
@@ -103,8 +106,6 @@ namespace WebAPITest.RepositoriesTest.CreditPartnerRepositoryTest
 
         [TestMethod]
         [DataRow(1)]
-        [DataRow(2)]
-        [DataRow(3)]
         public void GetCreditPartnerByIdAsyncReturnsDataIncludingRequestsTest(int id)
         {
             //arrange
