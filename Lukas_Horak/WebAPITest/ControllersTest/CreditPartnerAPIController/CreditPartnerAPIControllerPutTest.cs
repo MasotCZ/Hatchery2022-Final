@@ -33,13 +33,13 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
             _dto = new CreditPartnerChangeEndDateIncomingDto() { EndDate = _endDate };
         }
 
-        [DataRow(1)]
+        [DataRow("1")]
         [TestMethod]
-        public void PutOkTest(int id)
+        public void PutOkTest(string token)
         {
             //arrange
             var fromDb = new CreditPartner() { IdNumber = 1 };
-            _repository.GetCreditPartnerByIdAsync(Arg.Any<int>()).Returns(Task.FromResult(fromDb));
+            _repository.GetCreditPartnerByTokenAsync(Arg.Any<string>()).Returns(Task.FromResult(fromDb));
             _repository.SaveChangesAsync().Returns(1);
 
             var output = new CreditPartnerFullInfoDto() { EndDate = _endDate };
@@ -49,7 +49,7 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
                 .Returns(output);
 
             //act
-            var res = _controller.Put(id, _dto).Result;
+            var res = _controller.Put(token, _dto).Result;
 
             //assert
             //specifikovat na non default
@@ -58,7 +58,7 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
             (res.Result as OkObjectResult).Value.ShouldBeOfType<CreditPartnerFullInfoDto>();
             ((res.Result as OkObjectResult).Value as CreditPartnerFullInfoDto).EndDate.ShouldBe(_endDate);
 
-            _repository.Received().GetCreditPartnerByIdAsync(id);
+            _repository.Received().GetCreditPartnerByTokenAsync(token);
             _repository.Received().SaveChangesAsync();
 
             _mapper
@@ -70,61 +70,61 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
                 .Map<CreditPartnerFullInfoDto>(fromDb);
         }
 
-        [DataRow(1)]
+        [DataRow("1")]
         [TestMethod]
-        public void PutNotFoundTest(int id)
+        public void PutNotFoundTest(string token)
         {
             //arrange
-            _repository.GetCreditPartnerByIdAsync(Arg.Any<int>()).Returns(Task.FromResult<CreditPartner>(null));
+            _repository.GetCreditPartnerByTokenAsync(Arg.Any<string>()).Returns(Task.FromResult<CreditPartner>(null));
 
             //act
-            var res = _controller.Put(id, _dto).Result;
+            var res = _controller.Put(token, _dto).Result;
 
             //assert
             res.Result.ShouldBeOfType<NotFoundResult>();
 
-            _repository.Received().GetCreditPartnerByIdAsync(id);
+            _repository.Received().GetCreditPartnerByTokenAsync(token);
         }
 
-        [DataRow(1, 0)]
-        [DataRow(1, 2)]
+        [DataRow("1", 0)]
+        [DataRow("1", 2)]
         [TestMethod]
-        public void PutSaveChangeErrorTest(int id, int changes)
+        public void PutSaveChangeErrorTest(string token, int changes)
         {
             //arrange
             var fromDb = new CreditPartner() { IdNumber = 1 };
-            _repository.GetCreditPartnerByIdAsync(Arg.Any<int>()).Returns(Task.FromResult(fromDb));
+            _repository.GetCreditPartnerByTokenAsync(Arg.Any<string>()).Returns(Task.FromResult(fromDb));
             _repository.SaveChangesAsync().Returns(changes);
 
             _mapper.Map(Arg.Any<CreditPartnerChangeEndDateIncomingDto>(), Arg.Any<CreditPartner>()).Returns(fromDb);
 
             //act
-            var res = _controller.Put(id, _dto).Result;
+            var res = _controller.Put(token, _dto).Result;
 
             //assert
             res.Result.ShouldBeOfType<BadRequestObjectResult>();
 
-            _repository.Received().GetCreditPartnerByIdAsync(id);
+            _repository.Received().GetCreditPartnerByTokenAsync(token);
             _mapper
                 .Received()
                 .Map(_dto, fromDb);
             _repository.Received().SaveChangesAsync();
         }
 
-        [DataRow(1)]
+        [DataRow("1")]
         [TestMethod]
-        public void PutInternalServerErrorTest(int id)
+        public void PutInternalServerErrorTest(string token)
         {
             //arrange
-            _repository.GetCreditPartnerByIdAsync(Arg.Any<int>()).Throws(new Exception());
+            _repository.GetCreditPartnerByTokenAsync(Arg.Any<string>()).Throws(new Exception());
 
             //act
-            var res = _controller.Put(id, _dto).Result;
+            var res = _controller.Put(token, _dto).Result;
 
             //assert
             (res.Result as ObjectResult).StatusCode.ShouldBe(StatusCodes.Status500InternalServerError);
 
-            _repository.Received().GetCreditPartnerByIdAsync(id);
+            _repository.Received().GetCreditPartnerByTokenAsync(token);
         }
     }
 }

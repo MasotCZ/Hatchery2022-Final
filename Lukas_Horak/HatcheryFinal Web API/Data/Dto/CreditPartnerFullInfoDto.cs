@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HatcheryFinal_Web_API.Data.Dto
 {
+    /// <summary>
+    /// OK DUDE
+    /// </summary>
     public class CreditPartnerFullInfoDto
     {
         [Range(0, int.MaxValue, ErrorMessage = "Id muset be higher than {0}")]

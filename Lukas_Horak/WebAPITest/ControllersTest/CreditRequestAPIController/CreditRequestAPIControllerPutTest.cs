@@ -41,7 +41,7 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
         {
             //arrange
             _requestRepository.SaveChangesAsync().Returns(1);
-            _requestRepository.GetCreditRequestById(Arg.Any<int>()).Returns(Task.FromResult(_fromDb));
+            _requestRepository.GetCreditRequestByIdAsync(Arg.Any<int>()).Returns(Task.FromResult(_fromDb));
             _mapper.Map(Arg.Any<CreditRequestStatusChangeIncomingDto>(), Arg.Any<CreditRequest>()).Returns(_fromDb);
             _mapper.Map<CreditRequestStatusChangeIncomingDto>(Arg.Any<CreditRequest>()).Returns(_dto);
 
@@ -49,7 +49,7 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
             var res = _controller.Put(id, _dto).Result;
 
             //assert
-            _requestRepository.Received().GetCreditRequestById(id);
+            _requestRepository.Received().GetCreditRequestByIdAsync(id);
             _requestRepository.Received().SaveChangesAsync();
             _mapper.Received().Map(_dto, _fromDb);
             _mapper.Received().Map<CreditRequestStatusChangeIncomingDto>(_fromDb);
@@ -64,13 +64,13 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
         public void PutNotFoundTest(int id)
         {
             //arrange
-            _requestRepository.GetCreditRequestById(Arg.Any<int>()).Returns(Task.FromResult<CreditRequest>(null));
+            _requestRepository.GetCreditRequestByIdAsync(Arg.Any<int>()).Returns(Task.FromResult<CreditRequest>(null));
 
             //act
             var res = _controller.Put(id, _dto).Result;
 
             //assert
-            _requestRepository.Received().GetCreditRequestById(id);
+            _requestRepository.Received().GetCreditRequestByIdAsync(id);
 
             res.Result.ShouldBeOfType<NotFoundResult>();
         }
@@ -81,14 +81,14 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
         {
             //arrange
             _requestRepository.SaveChangesAsync().Returns(0);
-            _requestRepository.GetCreditRequestById(Arg.Any<int>()).Returns(Task.FromResult(_fromDb));
+            _requestRepository.GetCreditRequestByIdAsync(Arg.Any<int>()).Returns(Task.FromResult(_fromDb));
             _mapper.Map(Arg.Any<CreditRequestStatusChangeIncomingDto>(), Arg.Any<CreditRequest>()).Returns(_fromDb);
 
             //act
             var res = _controller.Put(id, _dto).Result;
 
             //assert
-            _requestRepository.Received().GetCreditRequestById(id);
+            _requestRepository.Received().GetCreditRequestByIdAsync(id);
             _requestRepository.Received().SaveChangesAsync();
             _mapper.Received().Map(_dto, _fromDb);
 
@@ -100,13 +100,13 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
         public void PutInternalServerErrorTest(int id)
         {
             //arrange
-            _requestRepository.GetCreditRequestById(id).Throws(new System.Exception());
+            _requestRepository.GetCreditRequestByIdAsync(id).Throws(new System.Exception());
 
             //act
             var res = _controller.Put(id, _dto).Result;
 
             //assert
-            _requestRepository.Received().GetCreditRequestById(id);
+            _requestRepository.Received().GetCreditRequestByIdAsync(id);
 
             (res.Result as ObjectResult).StatusCode.ShouldBe(StatusCodes.Status500InternalServerError);
         }

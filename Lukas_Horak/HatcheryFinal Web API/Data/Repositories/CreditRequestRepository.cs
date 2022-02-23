@@ -6,7 +6,7 @@ namespace HatcheryFinal_Web_API.Data
 {
     class CreditRequestRepository : RepositoryBase<CreditRequest, CreditRequestRepository>, ICreditRequestRepository
     {
-        public CreditRequestRepository(BankDbContext context, ILogger<CreditRequestRepository> logger) : base(context, logger)
+        public CreditRequestRepository(IBankDbContext context, ILogger<CreditRequestRepository> logger) : base(context, logger)
         {
         }
 
@@ -16,7 +16,7 @@ namespace HatcheryFinal_Web_API.Data
 
             var querry = _context.CreditRequests.AsQueryable();
 
-            querry = querry.Where(d => d.ContactStatus.StatusCode == CreditRequestStatusCode.Unfulfilled);
+            querry = querry.Where(d => d.ContactStatus == null || d.ContactStatus.StatusCode == CreditRequestStatusCode.Unfulfilled);
 
             var res = await querry.ToArrayAsync();
 
@@ -25,7 +25,7 @@ namespace HatcheryFinal_Web_API.Data
             return res;
         }
 
-        public async Task<CreditRequest> GetCreditRequestById(int id)
+        public async Task<CreditRequest> GetCreditRequestByIdAsync(int id)
         {
             _logger.LogInformation($"Selecting credit request by id: {id}");
 

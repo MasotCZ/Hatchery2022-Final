@@ -11,6 +11,7 @@ using System;
 
 namespace WebAPITest.RepositoriesTest.RepositoryBaseTest
 {
+    [TestClass]
     public class RepositoryBaseTest
     {
         private BankDbContext _context;
@@ -40,6 +41,7 @@ namespace WebAPITest.RepositoriesTest.RepositoryBaseTest
             _context.Received().Add(toAdd);
         }
 
+        [TestMethod]
         public void DeleteTest()
         {
             //arrange

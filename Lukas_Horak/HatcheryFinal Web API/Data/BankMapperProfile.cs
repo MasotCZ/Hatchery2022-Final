@@ -21,6 +21,8 @@ namespace HatcheryFinal_Web_API.Data
 
             this.CreateMap<CreditRequestStatusChangeIncomingDto, CreditRequest>()
                 .ReverseMap();
+
+            this.CreateMap<CreditPartnerChangeEndDateIncomingDto, CreditPartner>();
         }
     }
 }

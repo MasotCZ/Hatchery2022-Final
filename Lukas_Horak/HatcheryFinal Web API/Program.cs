@@ -11,12 +11,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<BankDbContext>();
 
+builder.Services.AddScoped<IBankDbContext, BankDbContext>();
 builder.Services.AddScoped<ICreditRequestRepository, CreditRequestRepository>();
 builder.Services.AddScoped<ICreditPartnerRepository, CreditPartnerRepository>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddControllers();
-
 
 var app = builder.Build();
 

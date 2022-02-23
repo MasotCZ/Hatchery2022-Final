@@ -6,8 +6,6 @@ namespace HatcheryFinal_Web_API.Data.Entities
     //on Create, send back Token
     public class CreditPartner
     {
-        private const int SALT = 654651361;
-
         private int _idNumber;
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -18,12 +16,26 @@ namespace HatcheryFinal_Web_API.Data.Entities
             set
             {
                 _idNumber = value;
-                Token = HashCode.Combine(IdNumber, SALT).ToString();
+
+                if (Token is default(string) || Token is null)
+                {
+                    Token = generateToken();
+                }
             }
         }
 
         [Required]
-        public string Token { get; set; }
+        public string Token
+        {
+            get;
+            set;
+        }
+
+        private string generateToken()
+        {
+            const int SALT = 654651361;
+            return HashCode.Combine(IdNumber, SALT).ToString();
+        }
 
         [Required]
         [StringLength(255)]

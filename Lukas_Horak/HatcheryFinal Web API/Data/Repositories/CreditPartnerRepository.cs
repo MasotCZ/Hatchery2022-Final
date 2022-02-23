@@ -6,7 +6,7 @@ namespace HatcheryFinal_Web_API.Data
 {
     class CreditPartnerRepository : RepositoryBase<CreditPartner, CreditPartnerRepository>, ICreditPartnerRepository
     {
-        public CreditPartnerRepository(BankDbContext context, ILogger<CreditPartnerRepository> logger) : base(context, logger)
+        public CreditPartnerRepository(IBankDbContext context, ILogger<CreditPartnerRepository> logger) : base(context, logger)
         {
         }
 

@@ -12,8 +12,8 @@ namespace HatcheryFinal_Web_API.Controllers
     public class CreditRequestController : ControllerBase
     {
         private readonly ICreditRequestRepository _requestRepository;
-        private readonly IMapper _mapper;
         private readonly ICreditPartnerRepository _partnerRepository;
+        private readonly IMapper _mapper;
 
         public CreditRequestController(ICreditRequestRepository requestRepository, ICreditPartnerRepository partnerRepository, IMapper mapper)
         {
@@ -23,7 +23,7 @@ namespace HatcheryFinal_Web_API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<CreditRequest[]>> Get()
+        public async Task<ActionResult<CreditRequestDto[]>> Get()
         {
             try
             {
@@ -71,7 +71,7 @@ namespace HatcheryFinal_Web_API.Controllers
         {
             try
             {
-                var current = await _requestRepository.GetCreditRequestById(id);
+                var current = await _requestRepository.GetCreditRequestByIdAsync(id);
 
                 if (current is null)
                 {
