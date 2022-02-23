@@ -4,6 +4,7 @@ using HatcheryFinal_Web_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HatcheryFinal_Web_API.Migrations
 {
     [DbContext(typeof(BankDbContext))]
-    partial class BankDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220223142551_CreditSizeChange")]
+    partial class CreditSizeChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

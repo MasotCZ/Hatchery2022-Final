@@ -52,9 +52,9 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
             var res = _controller.Post(_dtoWithFutureEndDate).Result;
 
             //assert
-            res.Result.ShouldBeOfType<OkObjectResult>();
-            (res.Result as OkObjectResult).Value.ShouldBeOfType<CreditPartnerRegisteredDto>();
-            ((res.Result as OkObjectResult).Value as CreditPartnerRegisteredDto).Token.ShouldBe(output.Token);
+            res.Result.ShouldBeOfType<CreatedResult>();
+            (res.Result as CreatedResult).Value.ShouldBeOfType<CreditPartnerRegisteredDto>();
+            ((res.Result as CreatedResult).Value as CreditPartnerRegisteredDto).Token.ShouldBe(output.Token);
 
             _repository.Received().GetCreditPartnerByIdAsync(1);
             _mapper.Received().Map<CreditPartner>(_dtoWithFutureEndDate);
@@ -106,8 +106,8 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
             _repository.Received().GetCreditPartnerByIdAsync(1);
         }
 
-        [DataRow(0)]
         [DataRow(2)]
+        [DataRow(3)]
         [TestMethod]
         public void PostSaveChangeErrorTest(int changes)
         {

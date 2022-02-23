@@ -39,6 +39,6 @@ namespace HatcheryFinal_Web_API.Data.Entities
         [StringLength(512)]
         public string? Note { get; set; }
 
-        public CreditRequestStatus ContactStatus { get; set; } = CreditRequestStatus.Default;
+        public CreditRequestStatus ContactStatus { get; set; }
     }
 }

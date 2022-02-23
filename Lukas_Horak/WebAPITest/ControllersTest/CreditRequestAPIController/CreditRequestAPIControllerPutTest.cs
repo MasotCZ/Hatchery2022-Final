@@ -22,6 +22,7 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
         private IMapper _mapper;
         private CreditRequest _fromDb;
         private CreditRequestStatusChangeIncomingDto _dto;
+        private CreditRequestDto _output;
 
         [TestInitialize]
         public void Init()
@@ -33,6 +34,7 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
 
             _fromDb = new CreditRequest() { Id = 1, Name = "yep" };
             _dto = new CreditRequestStatusChangeIncomingDto() { ContactStatus = new CreditRequestStatusDto() { StatusCode = CreditRequestStatusCode.Accepted } };
+            _output = new CreditRequestDto() { ContactStatus = _dto.ContactStatus };
         }
 
         [DataRow(1)]
@@ -43,7 +45,7 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
             _requestRepository.SaveChangesAsync().Returns(1);
             _requestRepository.GetCreditRequestByIdAsync(Arg.Any<int>()).Returns(Task.FromResult(_fromDb));
             _mapper.Map(Arg.Any<CreditRequestStatusChangeIncomingDto>(), Arg.Any<CreditRequest>()).Returns(_fromDb);
-            _mapper.Map<CreditRequestStatusChangeIncomingDto>(Arg.Any<CreditRequest>()).Returns(_dto);
+            _mapper.Map<CreditRequestDto>(Arg.Any<CreditRequest>()).Returns(_output);
 
             //act
             var res = _controller.Put(id, _dto).Result;
@@ -55,8 +57,8 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
             _mapper.Received().Map<CreditRequestStatusChangeIncomingDto>(_fromDb);
 
             res.Result.ShouldBeOfType<OkObjectResult>();
-            (res.Result as OkObjectResult).Value.ShouldBeOfType<CreditRequestStatusChangeIncomingDto>();
-            ((res.Result as OkObjectResult).Value as CreditRequestStatusChangeIncomingDto).ShouldBe(_dto);
+            (res.Result as OkObjectResult).Value.ShouldBeOfType<CreditRequestDto>();
+            ((res.Result as OkObjectResult).Value as CreditRequestDto).ShouldBe(_output);
         }
 
         [DataRow(1)]
@@ -80,7 +82,7 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
         public void PutSaveChangeErrorTest(int id)
         {
             //arrange
-            _requestRepository.SaveChangesAsync().Returns(0);
+            _requestRepository.SaveChangesAsync().Returns(3);
             _requestRepository.GetCreditRequestByIdAsync(Arg.Any<int>()).Returns(Task.FromResult(_fromDb));
             _mapper.Map(Arg.Any<CreditRequestStatusChangeIncomingDto>(), Arg.Any<CreditRequest>()).Returns(_fromDb);
 

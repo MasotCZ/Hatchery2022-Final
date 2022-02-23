@@ -16,7 +16,11 @@ namespace HatcheryFinal_Web_API.Data
 
             var querry = _context.CreditRequests.AsQueryable();
 
-            querry = querry.Where(d => d.ContactStatus == null || d.ContactStatus.StatusCode == CreditRequestStatusCode.Unfulfilled);
+            querry = querry
+                .Where(d => d.ContactStatus == null || d.ContactStatus.StatusCode == CreditRequestStatusCode.Unfulfilled)
+                .Include(d => d.ContactStatus)
+                .Include(d => d.Partner)
+                .Where(d => d.Partner.StartDate < DateTime.Now && (d.Partner.EndDate == null || d.Partner.EndDate > DateTime.Now));
 
             var res = await querry.ToArrayAsync();
 
@@ -31,7 +35,9 @@ namespace HatcheryFinal_Web_API.Data
 
             var querry = _context.CreditRequests.AsQueryable();
 
-            querry = querry.Where(d => d.Id == id);
+            querry = querry
+                .Where(d => d.Id == id)
+                .Include(d => d.ContactStatus);
 
             var res = await querry.FirstOrDefaultAsync();
 

@@ -12,12 +12,6 @@ namespace HatcheryFinal_Web_API.Data.Entities
 
     public class CreditRequestStatus
     {
-        public static CreditRequestStatus Default = new CreditRequestStatus()
-        {
-            StatusCode = CreditRequestStatusCode.Unfulfilled,
-            ContactNotes = ""
-        };
-
         [Key]
         public int Id { get; set; }
 

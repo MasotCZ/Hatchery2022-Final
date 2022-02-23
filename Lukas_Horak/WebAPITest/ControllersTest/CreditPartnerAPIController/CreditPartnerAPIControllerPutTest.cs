@@ -86,8 +86,8 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
             _repository.Received().GetCreditPartnerByTokenAsync(token);
         }
 
-        [DataRow("1", 0)]
         [DataRow("1", 2)]
+        [DataRow("1", 3)]
         [TestMethod]
         public void PutSaveChangeErrorTest(string token, int changes)
         {

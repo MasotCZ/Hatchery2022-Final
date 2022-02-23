@@ -21,8 +21,9 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
         private ICreditPartnerRepository _partnerRepository;
         private ICreditRequestRepository _requestRepository;
         private IMapper _mapper;
-        private CreditRequestDto _dto;
+        private CreditRequestNewIncomingDto _dto;
         private CreditPartner _fromDb;
+        private CreditRequestDto _output;
 
         [TestInitialize]
         public void Init()
@@ -32,8 +33,9 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
             _mapper = Substitute.For<IMapper>();
             _controller = new CreditRequestController(_requestRepository, _partnerRepository, _mapper);
 
-            _dto = new CreditRequestDto() { Token = "22" };
-            _fromDb = new CreditPartner();
+            _dto = new CreditRequestNewIncomingDto() { Token = "22" };
+            _fromDb = new CreditPartner() { Name = "kure" };
+            _output = new CreditRequestDto() { Name = "ok" };
         }
 
         [TestMethod]
@@ -41,21 +43,21 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
         {
             //arrange
             _partnerRepository.GetActiveCreditPartnerByTokenAsync(Arg.Any<string>()).Returns(Task.FromResult(_fromDb));
-            _requestRepository.SaveChangesAsync().Returns(1);
+            _requestRepository.SaveChangesAsync().Returns(2);
 
             var toDb = new CreditRequest();
             _mapper.Map<CreditRequest>(Arg.Any<CreditRequestDto>())
                 .Returns(toDb);
             _mapper.Map<CreditRequestDto>(Arg.Any<CreditRequest>())
-                .Returns(_dto);
+                .Returns(_output);
 
             //act
             var res = _controller.Post(_dto).Result;
 
             //assert
-            res.Result.ShouldBeOfType<OkObjectResult>();
-            (res.Result as OkObjectResult).Value.ShouldBeOfType<CreditRequestDto>();
-            ((res.Result as OkObjectResult).Value as CreditRequestDto).ShouldBe(_dto);
+            res.Result.ShouldBeOfType<CreatedResult>();
+            (res.Result as CreatedResult).Value.ShouldBeOfType<CreditRequestDto>();
+            ((res.Result as CreatedResult).Value as CreditRequestDto).ShouldBe(_output);
 
             _partnerRepository.Received().GetActiveCreditPartnerByTokenAsync(_dto.Token);
             _mapper.Received().Map<CreditRequest>(_dto);
@@ -81,7 +83,7 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
         }
 
         [DataRow(0)]
-        [DataRow(2)]
+        [DataRow(1)]
         [TestMethod]
         public void PostSaveChangeErrorTest(int changes)
         {

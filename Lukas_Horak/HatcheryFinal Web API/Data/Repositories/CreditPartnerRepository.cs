@@ -39,7 +39,7 @@ namespace HatcheryFinal_Web_API.Data
             _logger.LogInformation($"Selecting active credit partner by token: {token}");
 
             var res = await GetQuerryCreaditPartnerByFilterFunction(d => d.Token == token, includeRequests)
-                 .FirstOrDefaultAsync(d => d.EndDate == null || d.EndDate > DateTime.Now);
+                 .FirstOrDefaultAsync(d => d.StartDate < DateTime.Now && (d.EndDate == null || d.EndDate > DateTime.Now));
 
             _logger.LogInformation($"Found result: {res is not null}");
 

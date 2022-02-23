@@ -23,12 +23,14 @@ namespace HatcheryFinal_Web_API.Controllers
         /// <summary>
         /// Method that registers a new partner into the system, for inactive partners please use <see cref="Put"/>
         /// </summary>
-        /// <param name="creditPartnerDto">Input json object <see cref="CreditPartnerFullInfoDto"/></param>
+        /// <param name="creditPartnerDto">Json object with data needed, for info about attributes see <see cref="CreditPartnerFullInfoDto"/></param>
         /// <returns>
-        /// OkObjectResult with generated Token and information about the partner unless the partner was already registered or inactive,
+        /// <see cref="CreatedResult"/> with generated Token and information about the partner, see <see cref="CreditPartnerRegisteredDto"/>
+        /// for information about attributtes,
+        /// unless the partner was already registered or inactive,
         /// in which case the method will check if the parter is inactive, if it is then it will change the partner data to the input data.
-        /// If the partner is registered and active BadRequestObjectResult will be returned.
-        /// BadRequestObjectResult or ObjectResult with status code  500 otherwise.
+        /// If the partner is registered and active <see cref="BadRequestObjectResult"/> will be returned.
+        /// <see cref="BadRequestObjectResult"/> or <see cref="ObjectResult"/> with status code  500 otherwise.
         /// </returns>
         [HttpPost]
         public async Task<ActionResult<CreditPartnerRegisteredDto>> Post([FromBody] CreditPartnerFullInfoDto creditPartnerDto)
@@ -56,12 +58,12 @@ namespace HatcheryFinal_Web_API.Controllers
                     toAdd = _mapper.Map(creditPartnerDto, current);
                 }
 
-                if (await _partnerRepository.SaveChangesAsync() != 1)
+                if (await _partnerRepository.SaveChangesAsync() > 1)
                 {
                     return BadRequest("Could not save to Db");
                 }
 
-                return Ok(_mapper.Map<CreditPartnerRegisteredDto>(toAdd));
+                return Created($"api/CreditPartner", _mapper.Map<CreditPartnerRegisteredDto>(toAdd));
             }
             catch (Exception e)
             {
@@ -73,11 +75,11 @@ namespace HatcheryFinal_Web_API.Controllers
         /// Method that changes a partners contract end date
         /// </summary>
         /// <param name="token">Registered token of the partner</param>
-        /// <param name="creditPartnerUnregisterDto">Input json object <see cref="CreditPartnerChangeEndDateIncomingDto"/></param>
+        /// <param name="creditPartnerDto">Json object with data needed, for info about attributes see <see cref="CreditPartnerChangeEndDateIncomingDto"/></param>
         /// <returns>
-        /// OkObjectResult with partner data.
-        /// NotFoundObjectResult if the token does not exist.
-        /// BadRequestObjectResult or ObjectResult with status code  500 otherwise.
+        /// <see cref="OkObjectResult"/> with partner data see <see cref="CreditPartnerFullInfoDto"/> for more information about attributes.
+        /// <see cref="NotFoundObjectResult"/> if the token does not exist.
+        /// <see cref="BadRequestObjectResult"/> or <see cref="ObjectResult"/> with status code  500 otherwise.
         /// </returns>
         [HttpPut("{token}")]
         public async Task<ActionResult<CreditPartnerFullInfoDto>> Put(string token, [FromBody] CreditPartnerChangeEndDateIncomingDto creditPartnerUnregisterDto)
@@ -93,7 +95,7 @@ namespace HatcheryFinal_Web_API.Controllers
 
                 current = _mapper.Map(creditPartnerUnregisterDto, current);
 
-                if (await _partnerRepository.SaveChangesAsync() != 1)
+                if (await _partnerRepository.SaveChangesAsync() > 1)
                 {
                     return BadRequest("Could not save to Db");
                 }
@@ -107,14 +109,15 @@ namespace HatcheryFinal_Web_API.Controllers
         }
 
         /// <summary>
+        /// !INTERNAL!
         /// Deletes a partner from the system.
         /// Should only be used internally
         /// </summary>
         /// <param name="id">id of the partner to delete</param>
         /// <returns>
-        /// OkObjectResult on succesfull delete.
-        /// NotFoundObjectResult if not partner exists with id.
-        /// BadRequestObjectResult or ObjectResult with status code  500 otherwise.
+        /// <see cref="OkObjectResult"/> on succesfull delete.
+        /// <see cref="NotFoundObjectResult"/> if not partner exists with id.
+        /// <see cref="BadRequestObjectResult"/> or <see cref="ObjectResult "/> with status code  500 otherwise.
         /// </returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

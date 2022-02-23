@@ -21,7 +21,7 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
         private ICreditPartnerRepository _partnerRepository;
         private IMapper _mapper;
         private CreditRequest[] _fromDb;
-        private CreditRequestDto[] _output;
+        private CreditRequestOutgoingWithIdDto[] _output;
 
         [TestInitialize]
         public void Init()
@@ -39,12 +39,12 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
                 new CreditRequest() { Id = 3 , Name = "ok"}
             };
 
-            _output = new CreditRequestDto[]
+            _output = new CreditRequestOutgoingWithIdDto[]
             {
-                new CreditRequestDto() { Name = "ok"},
-                new CreditRequestDto() { Name = "ok"},
-                new CreditRequestDto() { Name = "ok"},
-                new CreditRequestDto() { Name = "ok"}
+                new CreditRequestOutgoingWithIdDto() { Name = "ok"},
+                new CreditRequestOutgoingWithIdDto() { Name = "ok"},
+                new CreditRequestOutgoingWithIdDto() { Name = "ok"},
+                new CreditRequestOutgoingWithIdDto() { Name = "ok"}
             };
         }
 
@@ -53,18 +53,18 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
         {
             //arrange
             _requestRepository.GetAllUnfulfilledActiveCreditRequestsAsync().Returns(Task.FromResult(_fromDb));
-            _mapper.Map<CreditRequestDto[]>(Arg.Any<CreditRequest[]>()).Returns(_output);
+            _mapper.Map<CreditRequestOutgoingWithIdDto[]>(Arg.Any<CreditRequest[]>()).Returns(_output);
 
             //act
             var res = _controller.Get().Result;
 
             //assert
             _requestRepository.Received().GetAllUnfulfilledActiveCreditRequestsAsync();
-            _mapper.Received().Map<CreditRequestDto[]>(_fromDb);
+            _mapper.Received().Map<CreditRequestOutgoingWithIdDto[]>(_fromDb);
 
             res.Result.ShouldBeOfType<OkObjectResult>();
-            (res.Result as OkObjectResult).Value.ShouldBeOfType<CreditRequestDto[]>();
-            ((res.Result as OkObjectResult).Value as CreditRequestDto[]).ShouldBe(_output);
+            (res.Result as OkObjectResult).Value.ShouldBeOfType<CreditRequestOutgoingWithIdDto[]>();
+            ((res.Result as OkObjectResult).Value as CreditRequestOutgoingWithIdDto[]).ShouldBe(_output);
         }
 
         [TestMethod]

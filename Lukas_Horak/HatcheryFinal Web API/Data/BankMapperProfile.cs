@@ -23,6 +23,10 @@ namespace HatcheryFinal_Web_API.Data
                 .ReverseMap();
 
             this.CreateMap<CreditPartnerChangeEndDateIncomingDto, CreditPartner>();
+
+            this.CreateMap<CreditRequest, CreditRequestOutgoingWithIdDto>();
+
+            this.CreateMap<CreditRequestNewIncomingDto, CreditRequest>();
         }
     }
 }
