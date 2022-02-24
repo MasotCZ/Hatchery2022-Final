@@ -33,7 +33,7 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
             _controller = new CreditRequestController(_requestRepository, _partnerRepository, _mapper);
 
             _fromDb = new CreditRequest() { Id = 1, Name = "yep" };
-            _dto = new CreditRequestStatusChangeIncomingDto() { ContactStatus = new CreditRequestStatusDto() { StatusCode = CreditRequestStatusCode.Accepted } };
+            _dto = new CreditRequestStatusChangeIncomingDto() { ContactStatus = new CreditRequestStatusDto() { StatusCode = CreditRequestStatusCode.Accepted.ToString() } };
             _output = new CreditRequestDto() { ContactStatus = _dto.ContactStatus };
         }
 
@@ -54,7 +54,7 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
             _requestRepository.Received().GetCreditRequestByIdAsync(id);
             _requestRepository.Received().SaveChangesAsync();
             _mapper.Received().Map(_dto, _fromDb);
-            _mapper.Received().Map<CreditRequestStatusChangeIncomingDto>(_fromDb);
+            _mapper.Received().Map<CreditRequestDto>(_fromDb);
 
             res.Result.ShouldBeOfType<OkObjectResult>();
             (res.Result as OkObjectResult).Value.ShouldBeOfType<CreditRequestDto>();

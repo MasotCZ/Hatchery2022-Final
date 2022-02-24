@@ -81,9 +81,9 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
 
             //assert
             //Assert.IsTrue(res.Result is NotFoundObjectResult, $"status is: {(res.Result as StatusCodeResult).StatusCode}");
-            res.Result.ShouldBeOfType<OkObjectResult>();
-            (res.Result as OkObjectResult).Value.ShouldBeOfType<CreditPartnerRegisteredDto>();
-            ((res.Result as OkObjectResult).Value as CreditPartnerRegisteredDto).Token.ShouldBe(output.Token);
+            res.Result.ShouldBeOfType<CreatedResult>();
+            (res.Result as CreatedResult).Value.ShouldBeOfType<CreditPartnerRegisteredDto>();
+            ((res.Result as CreatedResult).Value as CreditPartnerRegisteredDto).Token.ShouldBe(output.Token);
 
             _repository.Received().GetCreditPartnerByIdAsync(_dtoWithPastEndDate.IdNumber);
             _mapper.Received().Map(_dtoWithPastEndDate, fromDb);

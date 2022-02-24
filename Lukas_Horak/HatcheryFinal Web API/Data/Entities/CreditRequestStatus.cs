@@ -5,8 +5,8 @@ namespace HatcheryFinal_Web_API.Data.Entities
     public enum CreditRequestStatusCode
     {
         Unfulfilled,
-        CouldntContact,
         Accepted,
+        CouldntContact,
         Refused,
     }
 

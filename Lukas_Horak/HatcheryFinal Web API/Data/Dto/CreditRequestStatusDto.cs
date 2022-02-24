@@ -9,9 +9,9 @@ namespace HatcheryFinal_Web_API.Data.Dto
     public class CreditRequestStatusDto
     {
         /// <summary>
-        /// Current status of the credit request <seealso cref="CreditRequestStatusCode"/>.
+        /// Current status of the credit request converted to string <seealso cref="CreditRequestStatusCode"/>.
         /// </summary>
-        public CreditRequestStatusCode StatusCode { get; set; }
+        public string StatusCode { get; set; }
 
         /// <summary>
         /// Notes written by call center employee about the contact itself.

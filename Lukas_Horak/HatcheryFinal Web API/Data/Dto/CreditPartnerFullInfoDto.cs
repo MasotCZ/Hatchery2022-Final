@@ -40,5 +40,10 @@ namespace HatcheryFinal_Web_API.Data.Dto
         /// Attached file to this partner.
         /// </summary>
         public byte[]? File { get; set; }
+
+        /// <summary>
+        /// Collection of requests associated with this partner.
+        /// </summary>
+        public ICollection<CreditRequestDto>? Requests { get; set; }
     }
 }

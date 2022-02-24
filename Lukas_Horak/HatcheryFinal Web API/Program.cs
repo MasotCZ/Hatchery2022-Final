@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BankDbContext>();
 
 builder.Services.AddScoped<IBankDbContext, BankDbContext>();
+builder.Services.AddScoped<IProfitabilityRepository, ProfitabilityRepository>();
 builder.Services.AddScoped<ICreditRequestRepository, CreditRequestRepository>();
 builder.Services.AddScoped<ICreditPartnerRepository, CreditPartnerRepository>();
 
