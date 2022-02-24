@@ -1,5 +1,6 @@
 using HatcheryFinal_Web_API.Data;
 using HatcheryFinal_Web_API.Data.Repositories;
+using Microsoft.AspNetCore.Builder;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,9 +20,16 @@ builder.Services.AddScoped<ICreditPartnerRepository, CreditPartnerRepository>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddControllers();
 
+//swag
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();
+
+//swag
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseRouting();
 app.UseAuthorization();

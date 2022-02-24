@@ -4,24 +4,25 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:2666",
-      "sslPort": 0
+      "applicationUrl": "http://localhost:50145",
+      "sslPort": 44375
     }
   },
   "profiles": {
-    "HatcheryFinal_Web_API": {
+    "WebApplication1": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7007;http://localhost:5007",
-      "sslPort": 0,
+      "applicationUrl": "https://localhost:7228;http://localhost:5228",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "IIS Express": {
       "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
