@@ -1,0 +1,745 @@
+_type: export
+__export_format: 4
+__export_date: 2022-02-24T02:49:02.389Z
+__export_source: insomnia.desktop.app:v2021.7.2
+resources:
+  - _id: req_wrk_94b36f77b26b4767b47ecc239c42f7eb50ae2e7b
+    parentId: fld_aa72366610074602bff12f0a62853d76
+    modified: 1645667497739
+    created: 1645664715027
+    url: "{{ base_url }}/api/PartnerReport/MostProfitable"
+    name: most profitable
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1645664715027
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_aa72366610074602bff12f0a62853d76
+    parentId: wrk_94b36f77b26b4767b47ecc239c42f7eb
+    modified: 1645665022214
+    created: 1645665022214
+    name: Reports
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1645665022214
+    _type: request_group
+  - _id: wrk_94b36f77b26b4767b47ecc239c42f7eb
+    parentId: null
+    modified: 1645664715046
+    created: 1645663772868
+    name: HatcheryFinal Web API 1.0
+    description: ""
+    scope: design
+    _type: workspace
+  - _id: req_wrk_94b36f77b26b4767b47ecc239c42f7eb62f6d443
+    parentId: fld_aa72366610074602bff12f0a62853d76
+    modified: 1645667492696
+    created: 1645664715023
+    url: "{{ base_url }}/api/PartnerReport/MostSuccessful"
+    name: most successful
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1645664714977
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_wrk_94b36f77b26b4767b47ecc239c42f7eb1a846e4e
+    parentId: fld_522ee15219d34091a50235ca2063103b
+    modified: 1645667442184
+    created: 1645664715035
+    url: "{{ base_url }}/api/CreditRequest"
+    name: unfulfilled credit requests
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1645664715036
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_522ee15219d34091a50235ca2063103b
+    parentId: wrk_94b36f77b26b4767b47ecc239c42f7eb
+    modified: 1645664965624
+    created: 1645664965624
+    name: Credit request
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1645664965624
+    _type: request_group
+  - _id: req_wrk_94b36f77b26b4767b47ecc239c42f7eb8164d87a
+    parentId: fld_522ee15219d34091a50235ca2063103b
+    modified: 1645667450654
+    created: 1645664715030
+    url: "{{ base_url }}/api/CreditRequest/{{ id }}"
+    name: change credit request contact status
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "contactStatus": {
+            "statusCode": "string",
+            "contactNotes": "string"
+          }
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_05c5f4ed111a4897a6d06eef3debf45f
+    authentication: {}
+    metaSortKey: -1645664715011
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_wrk_94b36f77b26b4767b47ecc239c42f7eb2f95c49f
+    parentId: fld_522ee15219d34091a50235ca2063103b
+    modified: 1645667459539
+    created: 1645664715033
+    url: "{{ base_url }}/api/CreditRequest"
+    name: add new credit request
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "credit": 0,
+          "creditLengthInMonths": 0,
+          "phone": "string",
+          "name": "string",
+          "surname": "string",
+          "email": "user@example.com",
+          "note": "string",
+          "contactStatus": {
+            "statusCode": "string",
+            "contactNotes": "string"
+          },
+          "token": "string"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_b22d6dd9ab5a439f9be4ea64eb50e9dc
+    authentication: {}
+    metaSortKey: -1645664714986
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_wrk_94b36f77b26b4767b47ecc239c42f7ebae886c43
+    parentId: fld_7215c4586a3d4102a2d4ef5dcdce085d
+    modified: 1645667468776
+    created: 1645664715040
+    url: "{{ base_url }}/api/CreditPartner/{{ token }}"
+    name: changes the end date of a credit partner contract
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "endDate": "2023-02-24T01:05:15.018Z"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_814ca9921cf14ea8b4fadf5c9ce8c2de
+    authentication: {}
+    metaSortKey: -1645664715091
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_7215c4586a3d4102a2d4ef5dcdce085d
+    parentId: wrk_94b36f77b26b4767b47ecc239c42f7eb
+    modified: 1645664950080
+    created: 1645664950080
+    name: Credit partner
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1645664950080
+    _type: request_group
+  - _id: req_wrk_94b36f77b26b4767b47ecc239c42f7eb74650b77
+    parentId: fld_7215c4586a3d4102a2d4ef5dcdce085d
+    modified: 1645667476262
+    created: 1645664715038
+    url: "{{ base_url }}/api/CreditPartner/0"
+    name: deletes a credit partner, should only be internally used
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1645664715066
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_wrk_94b36f77b26b4767b47ecc239c42f7eb611c5dc7
+    parentId: fld_7215c4586a3d4102a2d4ef5dcdce085d
+    modified: 1645667483092
+    created: 1645664715041
+    url: "{{ base_url }}/api/CreditPartner"
+    name: adds a new credit partner
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "idNumber": 0,
+          "name": "string",
+          "startDate": "2022-02-24T01:05:15.017Z",
+          "endDate": "2022-02-24T01:05:15.017Z",
+          "file": "ZXhhbXBsZQ=="
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_836bdb7a1bfe46ba97b978477728629e
+    authentication: {}
+    metaSortKey: -1645664715041
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_97fda68b8cf6ee5330dff44902f8b0b07e171934
+    parentId: wrk_94b36f77b26b4767b47ecc239c42f7eb
+    modified: 1645664817513
+    created: 1645663772873
+    name: Base environment
+    data:
+      base_url: "{{ scheme }}://{{ host }}{{ base_path }}"
+    dataPropertyOrder:
+      "&":
+        - base_url
+    color: null
+    isPrivate: false
+    metaSortKey: 1645663772874
+    _type: environment
+  - _id: jar_97fda68b8cf6ee5330dff44902f8b0b07e171934
+    parentId: wrk_94b36f77b26b4767b47ecc239c42f7eb
+    modified: 1645663772876
+    created: 1645663772876
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_3f6fb50a63404eac8ebd2fb74e1b737d
+    parentId: wrk_94b36f77b26b4767b47ecc239c42f7eb
+    modified: 1645665122256
+    created: 1645663772869
+    fileName: HatcheryFinal LukasHorak
+    contents: >
+      ---
+
+      openapi: 3.0.1
+
+      info:
+        title: HatcheryFinal Web API
+        version: '1.0'
+      paths:
+        "/api/CreditPartner":
+          post:
+            tags:
+            - CreditPartner
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    "$ref": "#/components/schemas/CreditPartnerFullInfoDto"
+                text/json:
+                  schema:
+                    "$ref": "#/components/schemas/CreditPartnerFullInfoDto"
+                application/*+json:
+                  schema:
+                    "$ref": "#/components/schemas/CreditPartnerFullInfoDto"
+            responses:
+              '200':
+                description: Success
+                content:
+                  text/plain:
+                    schema:
+                      "$ref": "#/components/schemas/CreditPartnerRegisteredDto"
+                  application/json:
+                    schema:
+                      "$ref": "#/components/schemas/CreditPartnerRegisteredDto"
+                  text/json:
+                    schema:
+                      "$ref": "#/components/schemas/CreditPartnerRegisteredDto"
+        "/api/CreditPartner/{token}":
+          put:
+            tags:
+            - CreditPartner
+            parameters:
+            - name: token
+              in: path
+              required: true
+              schema:
+                type: string
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    "$ref": "#/components/schemas/CreditPartnerChangeEndDateIncomingDto"
+                text/json:
+                  schema:
+                    "$ref": "#/components/schemas/CreditPartnerChangeEndDateIncomingDto"
+                application/*+json:
+                  schema:
+                    "$ref": "#/components/schemas/CreditPartnerChangeEndDateIncomingDto"
+            responses:
+              '200':
+                description: Success
+                content:
+                  text/plain:
+                    schema:
+                      "$ref": "#/components/schemas/CreditPartnerFullInfoDto"
+                  application/json:
+                    schema:
+                      "$ref": "#/components/schemas/CreditPartnerFullInfoDto"
+                  text/json:
+                    schema:
+                      "$ref": "#/components/schemas/CreditPartnerFullInfoDto"
+        "/api/CreditPartner/{id}":
+          delete:
+            tags:
+            - CreditPartner
+            parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: integer
+                format: int32
+            responses:
+              '200':
+                description: Success
+        "/api/CreditRequest":
+          get:
+            tags:
+            - CreditRequest
+            responses:
+              '200':
+                description: Success
+                content:
+                  text/plain:
+                    schema:
+                      type: array
+                      items:
+                        "$ref": "#/components/schemas/CreditRequestOutgoingWithIdDto"
+                  application/json:
+                    schema:
+                      type: array
+                      items:
+                        "$ref": "#/components/schemas/CreditRequestOutgoingWithIdDto"
+                  text/json:
+                    schema:
+                      type: array
+                      items:
+                        "$ref": "#/components/schemas/CreditRequestOutgoingWithIdDto"
+          post:
+            tags:
+            - CreditRequest
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    "$ref": "#/components/schemas/CreditRequestNewIncomingDto"
+                text/json:
+                  schema:
+                    "$ref": "#/components/schemas/CreditRequestNewIncomingDto"
+                application/*+json:
+                  schema:
+                    "$ref": "#/components/schemas/CreditRequestNewIncomingDto"
+            responses:
+              '200':
+                description: Success
+                content:
+                  text/plain:
+                    schema:
+                      "$ref": "#/components/schemas/CreditRequestDto"
+                  application/json:
+                    schema:
+                      "$ref": "#/components/schemas/CreditRequestDto"
+                  text/json:
+                    schema:
+                      "$ref": "#/components/schemas/CreditRequestDto"
+        "/api/CreditRequest/{id}":
+          put:
+            tags:
+            - CreditRequest
+            parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: integer
+                format: int32
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    "$ref": "#/components/schemas/CreditRequestStatusChangeIncomingDto"
+                text/json:
+                  schema:
+                    "$ref": "#/components/schemas/CreditRequestStatusChangeIncomingDto"
+                application/*+json:
+                  schema:
+                    "$ref": "#/components/schemas/CreditRequestStatusChangeIncomingDto"
+            responses:
+              '200':
+                description: Success
+                content:
+                  text/plain:
+                    schema:
+                      "$ref": "#/components/schemas/CreditRequestDto"
+                  application/json:
+                    schema:
+                      "$ref": "#/components/schemas/CreditRequestDto"
+                  text/json:
+                    schema:
+                      "$ref": "#/components/schemas/CreditRequestDto"
+        "/api/PartnerReport/MostProfitable":
+          get:
+            tags:
+            - PartnerReport
+            responses:
+              '200':
+                description: Success
+                content:
+                  text/plain:
+                    schema:
+                      "$ref": "#/components/schemas/ProfitabilityReportDto"
+                  application/json:
+                    schema:
+                      "$ref": "#/components/schemas/ProfitabilityReportDto"
+                  text/json:
+                    schema:
+                      "$ref": "#/components/schemas/ProfitabilityReportDto"
+        "/api/PartnerReport/MostSuccessful":
+          get:
+            tags:
+            - PartnerReport
+            responses:
+              '200':
+                description: Success
+                content:
+                  text/plain:
+                    schema:
+                      "$ref": "#/components/schemas/ProfitabilityReportDto"
+                  application/json:
+                    schema:
+                      "$ref": "#/components/schemas/ProfitabilityReportDto"
+                  text/json:
+                    schema:
+                      "$ref": "#/components/schemas/ProfitabilityReportDto"
+      components:
+        schemas:
+          CreditPartnerChangeEndDateIncomingDto:
+            required:
+            - endDate
+            type: object
+            properties:
+              endDate:
+                type: string
+                format: date-time
+            additionalProperties: false
+          CreditPartnerFullInfoDto:
+            required:
+            - name
+            - startDate
+            type: object
+            properties:
+              idNumber:
+                maximum: 2147483647
+                minimum: 0
+                type: integer
+                format: int32
+              name:
+                maxLength: 255
+                minLength: 0
+                type: string
+              startDate:
+                type: string
+                format: date-time
+              endDate:
+                type: string
+                format: date-time
+                nullable: true
+              file:
+                type: string
+                format: byte
+                nullable: true
+              requests:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CreditRequestDto"
+                nullable: true
+            additionalProperties: false
+          CreditPartnerRegisteredDto:
+            required:
+            - token
+            type: object
+            properties:
+              token:
+                type: string
+              file:
+                type: string
+                format: byte
+                nullable: true
+            additionalProperties: false
+          CreditRequestDto:
+            required:
+            - credit
+            - creditLengthInMonths
+            - phone
+            type: object
+            properties:
+              credit:
+                maximum: 500000
+                minimum: 20000
+                type: number
+                format: double
+              creditLengthInMonths:
+                maximum: 96
+                minimum: 6
+                type: integer
+                format: int32
+              phone:
+                maxLength: 64
+                minLength: 0
+                type: string
+                format: tel
+              name:
+                maxLength: 255
+                minLength: 0
+                type: string
+                nullable: true
+              surname:
+                maxLength: 255
+                minLength: 0
+                type: string
+                nullable: true
+              email:
+                maxLength: 255
+                minLength: 0
+                type: string
+                format: email
+                nullable: true
+              note:
+                maxLength: 512
+                minLength: 0
+                type: string
+                nullable: true
+              contactStatus:
+                "$ref": "#/components/schemas/CreditRequestStatusDto"
+            additionalProperties: false
+          CreditRequestNewIncomingDto:
+            required:
+            - credit
+            - creditLengthInMonths
+            - phone
+            - token
+            type: object
+            properties:
+              credit:
+                maximum: 500000
+                minimum: 20000
+                type: number
+                format: double
+              creditLengthInMonths:
+                maximum: 96
+                minimum: 6
+                type: integer
+                format: int32
+              phone:
+                maxLength: 64
+                minLength: 0
+                type: string
+                format: tel
+              name:
+                maxLength: 255
+                minLength: 0
+                type: string
+                nullable: true
+              surname:
+                maxLength: 255
+                minLength: 0
+                type: string
+                nullable: true
+              email:
+                maxLength: 255
+                minLength: 0
+                type: string
+                format: email
+                nullable: true
+              note:
+                maxLength: 512
+                minLength: 0
+                type: string
+                nullable: true
+              contactStatus:
+                "$ref": "#/components/schemas/CreditRequestStatusDto"
+              token:
+                type: string
+            additionalProperties: false
+          CreditRequestOutgoingWithIdDto:
+            required:
+            - credit
+            - creditLengthInMonths
+            - id
+            - phone
+            type: object
+            properties:
+              credit:
+                maximum: 500000
+                minimum: 20000
+                type: number
+                format: double
+              creditLengthInMonths:
+                maximum: 96
+                minimum: 6
+                type: integer
+                format: int32
+              phone:
+                maxLength: 64
+                minLength: 0
+                type: string
+                format: tel
+              name:
+                maxLength: 255
+                minLength: 0
+                type: string
+                nullable: true
+              surname:
+                maxLength: 255
+                minLength: 0
+                type: string
+                nullable: true
+              email:
+                maxLength: 255
+                minLength: 0
+                type: string
+                format: email
+                nullable: true
+              note:
+                maxLength: 512
+                minLength: 0
+                type: string
+                nullable: true
+              contactStatus:
+                "$ref": "#/components/schemas/CreditRequestStatusDto"
+              id:
+                type: integer
+                format: int32
+            additionalProperties: false
+          CreditRequestStatusChangeIncomingDto:
+            required:
+            - contactStatus
+            type: object
+            properties:
+              contactStatus:
+                "$ref": "#/components/schemas/CreditRequestStatusDto"
+            additionalProperties: false
+          CreditRequestStatusDto:
+            type: object
+            properties:
+              statusCode:
+                type: string
+                nullable: true
+              contactNotes:
+                maxLength: 512
+                minLength: 0
+                type: string
+                nullable: true
+            additionalProperties: false
+          ProfitabilityReportDto:
+            type: object
+            properties:
+              partner:
+                "$ref": "#/components/schemas/CreditPartnerFullInfoDto"
+              totalCredit:
+                type: number
+                format: double
+              successRate:
+                type: number
+                format: double
+            additionalProperties: false
+    contentType: yaml
+    _type: api_spec
+  - _id: env_env_97fda68b8cf6ee5330dff44902f8b0b07e171934_sub
+    parentId: env_97fda68b8cf6ee5330dff44902f8b0b07e171934
+    modified: 1645665276917
+    created: 1645664715043
+    name: OpenAPI env
+    data:
+      scheme: http
+      base_path: :2666
+      host: localhost
+      token: 650721900
+    dataPropertyOrder:
+      "&":
+        - scheme
+        - base_path
+        - host
+        - token
+    color: null
+    isPrivate: false
+    metaSortKey: 1645664715043
+    _type: environment

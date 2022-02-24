@@ -65,6 +65,14 @@ namespace HatcheryFinal_Web_API.Controllers
                     return BadRequest("Partner not registered or inactive");
                 }
 
+                //problem mapper spadne pokud contact status neni jedna z enum hodnot
+                //nalezeno pred prednaskou
+                if (creditRequestDto.ContactStatus is not null 
+                    && !Enum.GetNames<CreditRequestStatusCode>().Contains(creditRequestDto.ContactStatus.StatusCode))
+                {
+                    return BadRequest("Wrong contact status code supplied");
+                }
+
                 var request = _mapper.Map<CreditRequest>(creditRequestDto);
 
                 if (request.ContactStatus is null)
@@ -107,6 +115,14 @@ namespace HatcheryFinal_Web_API.Controllers
                 if (current is null)
                 {
                     return NotFound();
+                }
+
+                //problem mapper spadne pokud contact status neni jedna z enum hodnot
+                //nalezeno pred prednaskou
+                if (creditRequestDto.ContactStatus is not null
+                    && !Enum.GetNames<CreditRequestStatusCode>().Contains(creditRequestDto.ContactStatus.StatusCode))
+                {
+                    return BadRequest("Wrong contact status code supplied");
                 }
 
                 current = _mapper.Map(creditRequestDto, current);

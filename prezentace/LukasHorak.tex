@@ -1,0 +1,130 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+
+\usetheme{Copenhagen}
+%\usecolortheme{owl}
+
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{caption}
+\usepackage{ragged2e} 
+\usepackage{multirow}
+\usepackage[font=small]{caption}
+%\usepackage{cctbase, ccmap, CCTfntef}
+\usepackage{wallpaper}
+\usepackage{float}
+
+%
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Vigour Alfa spol. s.r.o.]{Banka Big Bank CZ} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Lukáš Horák} % Your name
+%\institute[] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+%Ph.D. (EE \& CS) \\Department of Electrical Engineering and Computer Science (EECS)\\ Embry\textendash Riddle Aeronautical University (ERAU)\\ 
+%%\\Visiting Student, West Virginia University Institute of Technology (WVU Tech) \\ % Your institution for the title page
+\medskip
+ % Your email address
+%\textit{COCK\\}
+%\normalsize\textit{Tuesday, March 28, 2017\\IEEE West Virginia Section}
+}
+%\titlegraphic{\includegraphics[scale = 0.1]{Figures/LOGO/Updated-eagle.pdf} \includegraphics[scale = 0.2]{Figures/LOGO/ERAU_logo.pdf}}
+\date[Today]{\today} 
+
+	
+% Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+
+\end{frame}
+
+\begin{frame}
+ \begin{block}{Credit request}
+		Řeší zadanou problematiku: zpracování úvěrů
+		\begin{itemize}
+			\item Informační systém banky – registrace partnerů
+			\item Informační systém banky – call centrum
+			\item Informační systém banky – reporty
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Struktůra}
+	\begin{block}{Zadání}
+		\begin{itemize}
+			\item \textbf{Partner API} - (POST) Registrace a generování tokenu, (PUT) Ukončení smlouvy a změna smlouvy, popřípadě vymazání smlouvy    
+			\item \textbf{Call centre API} - (GET - list) nekontaktované úvěry, (PUT) změna úvěru dle komunikace s klientem
+			\item \textbf{Report API} - (GET) nejvýdělěčnější partner, (GET) nejúspěšnější partner
+		\end{itemize}
+	\end{block}
+
+	\begin{block}{Web API}
+		\begin{itemize}
+			\item \textbf{Partner API} - CreditPartnerController
+			\item \textbf{Call centre API} - CreditRequestController
+			\item \textbf{Report API} - PartnerReportController
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Insomnia}
+	\begin{block}{Showcase}
+		\Large{\centerline{Prezentace řešených metod v Insomnia}}
+	\end{block}
+\end{frame}
+
+%-------------------------------------------------------------%
+%-------------------------------------------------------------%
+%                                                             %
+%                    The Last Page                            %
+%                                                             %
+%-------------------------------------------------------------%
+%-------------------------------------------------------------%
+%-------------------------------------------------------------%
+
+\begin{frame}
+\Huge{\centerline{Děkuji}}
+\huge{\centerline{Otazky?}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
