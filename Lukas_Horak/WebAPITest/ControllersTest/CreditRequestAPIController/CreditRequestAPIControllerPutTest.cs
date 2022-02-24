@@ -73,6 +73,7 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
 
             //assert
             _requestRepository.Received().GetCreditRequestByIdAsync(id);
+            _requestRepository.Received(0).SaveChangesAsync();
 
             res.Result.ShouldBeOfType<NotFoundResult>();
         }
@@ -109,6 +110,7 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
 
             //assert
             _requestRepository.Received().GetCreditRequestByIdAsync(id);
+            _requestRepository.Received(0).SaveChangesAsync();
 
             (res.Result as ObjectResult).StatusCode.ShouldBe(StatusCodes.Status500InternalServerError);
         }

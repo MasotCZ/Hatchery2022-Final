@@ -80,6 +80,7 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
             res.Result.ShouldBeOfType<BadRequestObjectResult>();
 
             _partnerRepository.Received().GetActiveCreditPartnerByTokenAsync(_dto.Token);
+            _partnerRepository.Received(0).SaveChangesAsync();
         }
 
         [DataRow(0)]
@@ -118,6 +119,7 @@ namespace WebAPITest.ControllersTest.CreditRequestAPIController
 
             //assert
             _partnerRepository.Received().GetActiveCreditPartnerByTokenAsync(_dto.Token);
+            _partnerRepository.Received(0).SaveChangesAsync();
 
             res.Result.ShouldBeOfType<ObjectResult>();
             (res.Result as ObjectResult).StatusCode.ShouldBe(StatusCodes.Status500InternalServerError);

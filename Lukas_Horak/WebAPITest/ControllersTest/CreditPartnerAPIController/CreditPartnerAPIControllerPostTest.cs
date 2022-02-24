@@ -86,6 +86,7 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
             ((res.Result as CreatedResult).Value as CreditPartnerRegisteredDto).Token.ShouldBe(output.Token);
 
             _repository.Received().GetCreditPartnerByIdAsync(_dtoWithPastEndDate.IdNumber);
+            _repository.Received().SaveChangesAsync();
             _mapper.Received().Map(_dtoWithPastEndDate, fromDb);
             _mapper.Received().Map<CreditPartnerRegisteredDto>(fromDb);
         }
@@ -127,6 +128,7 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
             res.Result.ShouldBeOfType<BadRequestObjectResult>();
 
             _repository.Received().GetCreditPartnerByIdAsync(1);
+            _repository.Received().SaveChangesAsync();
             _mapper.Received().Map<CreditPartner>(_dtoWithFutureEndDate);
             _repository.Received().Add(toDb);
         }
@@ -144,6 +146,7 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
             (res.Result as ObjectResult).StatusCode.ShouldBe(StatusCodes.Status500InternalServerError);
 
             _repository.Received().GetCreditPartnerByIdAsync(1);
+            _repository.Received(0).SaveChangesAsync();
         }
     }
 }

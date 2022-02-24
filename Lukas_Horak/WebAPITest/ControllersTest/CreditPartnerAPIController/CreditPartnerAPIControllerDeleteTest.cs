@@ -61,6 +61,7 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
             //assert
             res.ShouldBeOfType<NotFoundResult>();
             _repository.Received().GetCreditPartnerByIdAsync(id);
+            _repository.Received(0).SaveChangesAsync();
         }
 
         [DataRow(1, 0)]
@@ -80,6 +81,7 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
             res.ShouldBeOfType<BadRequestObjectResult>();
             _repository.Received().GetCreditPartnerByIdAsync(id);
             _repository.Received().Remove(fromDb);
+            _repository.Received().SaveChangesAsync();
         }
 
         [DataRow(1)]
@@ -96,6 +98,7 @@ namespace WebAPITest.ControllersTest.CreditPartnerAPIController
             (res as ObjectResult).StatusCode.ShouldBe(StatusCodes.Status500InternalServerError);
 
             _repository.Received().GetCreditPartnerByIdAsync(id);
+            _repository.Received(0).SaveChangesAsync();
         }
     }
 }
